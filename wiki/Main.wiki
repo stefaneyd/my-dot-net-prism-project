@@ -50,5 +50,5 @@ What you need:
   * Microsoft Visual Studio 2010 Express, Professional, Premium or Ultimate editions
   * Microsoft Silverlight 4 Tools for Visual Studio 2010
   * Optional but recommended
-	** Microsoft Expression Blend 4
-	** Windows Phone Developer Tools SDK
+	# Microsoft Expression Blend 4
+	# Windows Phone Developer Tools SDK

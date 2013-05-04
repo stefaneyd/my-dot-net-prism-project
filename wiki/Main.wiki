@@ -37,3 +37,18 @@ just to name a few.
   * *FLEXIBLE* - can have components replaced with alternetiv implementations at runntime
   * *TEAM DEVELOPMENT* - with larger projects broken down too smaller components it allows for multiple group members to work in the project at the same time
   * *QUALITY* - Increases the quality of the code, because the application is broken down into smaller more manageable peaces, it allows common services and components to be fully tested.
+
+
+=== GET PRISM ===
+You can get the Prism library from Microsoft patterns & practices in the following link
+
+http://compositewpf.codeplex.com/
+
+What you need:
+  * Microsoft Windows 7, Windows Vista or Windows Server 2008
+  * Microsoft .NET Framework 4.0 (installed with Visual Studio 2010)
+  * Microsoft Visual Studio 2010 Express, Professional, Premium or Ultimate editions
+  * Microsoft Silverlight 4 Tools for Visual Studio 2010
+  * Optional but recommended
+	** Microsoft Expression Blend 4
+	** Windows Phone Developer Tools SDK

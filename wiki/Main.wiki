@@ -104,7 +104,7 @@ namespace HelloWorldModule
 
     public Initialize()
     {
-      regionViewRegistry.RegisterViewWithRegion("MainRegion", typeof(Views.HelloWorldView));
+      regionViewRegistry.RegisterViewWithRegion("MainRegion", typeof(Views.HelloWorldView)); // #3 Register the HelloWoldView with the MainRegion, and that is the mechanism that injects the View to the MainRegion in the Shell.
     }
   }
 }
@@ -149,7 +149,7 @@ namespace HelloWorld
       base.ConfigureModuleCatalog();
 
       ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-      moduleCatalog.addModule(typeof(HelloWorldModule.HelloWorldModule));
+      moduleCatalog.addModule(typeof(HelloWorldModule.HelloWorldModule)); // #2 This is where we add our HelloWorld module to the module catalog
     }
   }
 }

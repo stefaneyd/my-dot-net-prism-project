@@ -68,3 +68,4 @@ You can also run the RegisterPrismBinaries.bin file in the root directory to reg
 === APPLICATION DESIGN ===
 
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
+<img src="http://s23.postimg.org/b910ma8ez/prism.png" width="400px" />

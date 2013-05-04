@@ -31,15 +31,15 @@ some patterns are:
 just to name a few.
 
 
-BENEFITS
-  - REUSE:
+=== BENEFITS ===
+  * REUSE:
 It was designed around architectural design patterns such as separation of concerns and loose coupling this allows Prism to provide you with many benefits.
 Most common benefit when using a framework is REUSE, where you can build a component once and use it multiple times in an single application or cross applications and with Prism you take it a step further where you can build a component in WPF and use it in Silverlight so it is cross platforms.
-  - EXTENSIBLE
+  * EXTENSIBLE
 allows you to add new capabilityes and more easely intergrate them to your system
-  - FLEXIBLE
+  * FLEXIBLE
 can have components replaced with alternetiv implementations at runntime
-  - TEAM DEVELOPMENT
+  * TEAM DEVELOPMENT
 with larger projects broken down too smaller components it allows for multiple group members to work in the project at the same time
-  - QUALITY
-Increases the quality of the code, becouse the application is broken down into smaler more manegable peaces, it allows common services and components to be fully tested.
+  * QUALITY
+Increases the quality of the code, because the application is broken down into smaller more manageable peaces, it allows common services and components to be fully tested.

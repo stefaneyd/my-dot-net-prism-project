@@ -173,3 +173,6 @@ namespace HelloWorld
   }
 }
 }}}
+
+<hr />
+== 2. Bootstrapper and the Shell ==

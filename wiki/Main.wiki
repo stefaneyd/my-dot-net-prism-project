@@ -57,3 +57,14 @@ What you need:
 just go through the wizard and unpack to a preferred location
 the binary's are located in the Bin folder and they are separated into they'r associated platform Desktop, Phone, Silverlight, and you can reference them from there in your project.
 You can also run the RegisterPrismBinaries.bin file in the root directory to register the binary's in Visual Studio so you don't have to brows for the bins. There are also great documentation that follows the install. There are also great examples and quickstarts that come with prism. Prism also ships with its source, the source code to prism library in the PrismLibrary folder.
+
+
+=== BUILDING BLOCKS ===
+  * *Shell* - a template to define the structure of the UI, it contains Regions.
+  * *Regions* - Specify certain areas of the Shell as elements in witch you are going to inject a View at runtime.
+  * *Modules* - A single major functional area at you application, ideally this module would not depend on other module to function properly. Modules will contain a number of Views.
+  * *Views* - Just a simple UI that the user interacts with. In Prism they are constructed using the MVVM desigh pattern.
+  * *Bootstrapper* - A class that initializes the Prism Application. Create and configure Module catalogs your container any region adapter mappings and where you create and initialize the Shell.
+
+
+=== APPLICATION DESIGN ===

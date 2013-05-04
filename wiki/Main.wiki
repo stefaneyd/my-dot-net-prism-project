@@ -1,8 +1,8 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Introduction to Prism =
 
-Add your content here.
+this is a exercise in .NET Prism pattern library 
 <br />
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 

@@ -3,7 +3,7 @@
 = Introduction =
 
 Add your content here.
-<img src="http://s17.postimg.org/brbnpypjz/app.png" style="width 60px">image</img>
+<img src="http://s17.postimg.org/brbnpypjz/app.png" style="width: 30px">image</img>
 
 
 = Details =

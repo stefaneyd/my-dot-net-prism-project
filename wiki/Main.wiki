@@ -3,7 +3,7 @@
 = Introduction =
 
 Add your content here.
-<img src="https://docs.google.com/file/d/0B2LJRunwbsz7QUU5LVlnS1ZaQXc/edit?usp=sharing">image</img>
+<img src="https://lh5.googleusercontent.com/8qmn--LqQ6n6pLP5H_RP16I94XPzm3ZVEZQzdjnHOmdTzhZxRA3K8HTnuRoR_N7sUN-A5EA3YWY">image</img>
 
 = Details =
 

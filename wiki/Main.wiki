@@ -7,7 +7,7 @@ This is a exercise in .NET Prism pattern library, where we follow the [http://pl
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 
 
-= Details =
+== Getting started with Prism ==
 
 Add your content here.  Format your content with:
   * Text in *bold* or _italic_

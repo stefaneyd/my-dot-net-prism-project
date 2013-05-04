@@ -104,7 +104,7 @@ namespace HelloWorldModule
 
     public Initialize()
     {
-      regionViewRegistry.RegisterViewWithRegion("MainRegion", typeof(Views.HelloWorldView)); // #3 Register the HelloWoldView with the MainRegion, and that is the mechanism that injects the View to the MainRegion in the Shell.
+      regionViewRegistry.RegisterViewWithRegion("MainRegion", typeof(Views.HelloWorldView)); // #3 Register the HelloWorldView with the MainRegion, and that is the mechanism that injects the View to the MainRegion in the Shell.
     }
   }
 }

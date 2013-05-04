@@ -31,10 +31,10 @@ just to name a few.
 
 === BENEFITS ===
   * *[http://en.wikipedia.org/wiki/Code_reuse REUSE]* - It was designed around architectural design patterns such as [http://en.wikipedia.org/wiki/Separation_of_concerns separation of concerns] and [http://en.wikipedia.org/wiki/Loose_coupling loose coupling] this allows Prism to provide you with many benefits. Most common benefit when using a framework is reuse, where you can build a component once and use it multiple times in an single application or cross applications and with Prism you take it a step further where you can build a component in WPF and use it in Silverlight so it is cross platforms.
-  * *EXTENSIBLE* - allows you to add new capabilityes and more easely intergrate them to your system
+  * *[http://en.wikipedia.org/wiki/Extensible_programming EXTENSIBLE]* - allows you to add new capabilityes and more easely intergrate them to your system
   * *FLEXIBLE* - can have components replaced with alternetiv implementations at runntime
-  * *TEAM DEVELOPMENT* - with larger projects broken down too smaller components it allows for multiple group members to work in the project at the same time
-  * *QUALITY* - Increases the quality of the code, because the application is broken down into smaller more manageable peaces, it allows common services and components to be fully tested.
+  * *[http://en.wikipedia.org/wiki/Team_programming TEAM DEVELOPMENT]* - with larger projects broken down too smaller components it allows for multiple group members to work in the project at the same time
+  * *[http://en.wikipedia.org/wiki/Software_quality QUALITY]* - Increases the quality of the code, because the application is broken down into smaller more manageable peaces, it allows common services and components to be fully tested.
 
 
 === GET PRISM ===

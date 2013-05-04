@@ -69,3 +69,82 @@ You can also run the RegisterPrismBinaries.bin file in the root directory to reg
 
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 <img src="http://s23.postimg.org/b910ma8ez/prism.png" width="400px" />
+
+
+
+=== DEMO PRISM WALKTROUGH ===
+
+
+*Shell.xaml*
+{{{
+<Window x:Class="HelloWorld.Shell"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:cal="http://www.codeplex.com/prism"
+	Title="Hello World" Height="300" Width="300">
+	<ItemsControl Name="MainRegion" cal:RegionManager.RegionName="MainRegion" />
+</Window>
+}}}
+
+HelloWorldModule.cs
+using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.Prism.Regions;
+
+namespace HelloWorldModule
+{
+  public class HelloWorldModule : IModule
+  {
+    private readonly IRegionViewRegistry regionViewRegistry;
+    
+    public HelloWorldModule(IRegionViewRegistry registry)
+    {
+      this.regionViewRegistry = registry;
+    }
+
+    public Initialize()
+    {
+      regionViewRegistry.RegisterViewWithRegion("MainRegion", typeof(Views.HelloWorldView));
+    }
+  }
+}
+
+HelloWorldView.xaml
+<UserControl x:Class="HelloWorldModule.Views.helloWorldView"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<Grid>
+	  <TextBlock Text="Hello World" Forground="Green" HorizontalAlignment="Center"
+	</Grid>
+</UserControl>
+
+Bootstrapeper.cs
+using System.Windows;
+using Microsoft.Practices.Prism.Modularity;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Prism.UnityExtensins;
+
+namespace HelloWorld
+{
+  class Bootstrapper : UnityBootstrapper
+  {
+    protected override DependencyObject CreateShell()
+    {
+      return this.Container.Resolve<Shell>();
+    }
+
+    protected override void InitializeShell()
+    {
+      base.InitializeShell();
+      App.Current.MainWindow = (Window)this.Shell;
+      App.Current.MainWindow.Show();
+    }
+
+    protected override void ConfigureModuleCatalog()
+    {
+      base.ConfigureModuleCatalog();
+
+      ModuleCatalog moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+      moduleCatalog.addModule(typeof(HelloWorldModule.HelloWorldModule));
+    }
+  }
+}

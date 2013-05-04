@@ -3,6 +3,7 @@
 = Introduction =
 
 Add your content here.
+<br />
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 
 

@@ -2,7 +2,7 @@
 
 = Introduction to Prism =
 
-this is a exercise in .NET Prism pattern library 
+This is a exercise in .NET Prism pattern library. Where we follow the [http://pluralsight.com/training/courses/TableOfContents?courseName=prism-introduction&highlight=brian-lagunas_prism1-01-intro*1,3,4,7,0,2,8,5,6!brian-lagunas_prism1-02-bootstrapper-shell*0,9,1,2,6,3,4,5,7,8!brian-lagunas_prism1-03-regions*0,1,2,4,6,3,5!brian-lagunas_prism1-04-modules*0,1,4,10,11,2,3,5,6,7,8,9!brian-lagunas_prism1-05-views*0,1,5,6,8,11,2,7,9,3,10,4!brian-lagunas_prism1-6-communication*0,1,2,4,6,8,10,12,3,5,7,11,9!brian-lagunas_prism1-07-state-based-navigation*0,5,4,1,2,3!brian-lagunas_prism1-08-view-based-navigation*0,13,1,3,5,6,7,9,11,2,4,8,10,12#prism1-01-intro pluralsight tutorial] with with Brian Lagunas
 <br />
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 

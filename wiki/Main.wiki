@@ -168,7 +168,7 @@ namespace HelloWorld
     {
       base.OnStartup(e);
       Bootstrapper bootstrapper = new Bootstrapper();
-      bootstrapper.Run();
+      bootstrapper.Run();  // #1 this is the first thing that happens in the Application
     }
   }
 }

@@ -3,9 +3,8 @@
 = Introduction =
 
 Add your content here.
-<img src="https://skydrive.live.com/embed?cid=231502D712C1D735&resid=231502D712C1D735%21230&authkey=ABk6RzCOn_crF5c">image</img>
+<img src="http://s17.postimg.org/brbnpypjz/app.png">image</img>
 
-<iframe src="https://skydrive.live.com/embed?cid=231502D712C1D735&resid=231502D712C1D735%21230&authkey=ABk6RzCOn_crF5c" width="319" height="196" frameborder="0" scrolling="no"></iframe>
 
 = Details =
 

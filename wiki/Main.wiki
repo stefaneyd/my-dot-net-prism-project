@@ -1,0 +1,13 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Add your content here.
+<img src="http://upload.wikimedia.org/wikipedia/commons/6/63/Dispersion_prism.jpg">image</img>
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages

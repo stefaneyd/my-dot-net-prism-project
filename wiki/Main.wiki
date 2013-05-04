@@ -22,10 +22,10 @@ How to architect your projects so they will evolve and stand the test off time a
 Framework for developing composite applications.
 Take large applications and break it down to smaller more manageable peaces.
 It is specific to WPF, Silverlight and Windows Phone 7.
-Relies on design patterns to help promote loose coupling and separation  of concern
+Relies on design patterns to help promote loose coupling and separation  of concern.
 some patterns are:
-  -- dependency injection pattern
-  -- version of control pattern
-  -- command pattern
-  -- Model View ViewModel (MVVM) pattern
+  * dependency injection pattern
+  * version of control pattern
+  * command pattern
+  * Model View ViewModel (MVVM) pattern
 just to name a few.

@@ -9,7 +9,11 @@ This is a exercise in .NET Prism pattern library, where we follow the [http://pl
 
 == Getting started with Prism ==
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+=== INTRODUCTION ===
+Exercise in Prism pattern library
+How to architect your projects so they will evolve and stand the test off time and dont break the second you change something. That is what Prism can give you.
+
+  * What is Prism?
+  * Benefits
+  * Get Prism
+  * How it works

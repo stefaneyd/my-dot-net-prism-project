@@ -27,5 +27,5 @@ some patterns are:
   * dependency injection pattern
   * version of control pattern
   * command pattern
-  * Model View ViewModel '('MVVM')' pattern
+  * Model View ViewModel MVVM pattern
 just to name a few.

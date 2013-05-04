@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#This page contains notes on the whole course
 
 = Introduction to Prism =
 

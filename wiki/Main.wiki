@@ -3,7 +3,7 @@
 = Introduction =
 
 Add your content here.
-<img src="http://upload.wikimedia.org/wikipedia/commons/6/63/Dispersion_prism.jpg">image</img>
+<img src="https://docs.google.com/file/d/0B2LJRunwbsz7QUU5LVlnS1ZaQXc/edit?usp=sharing">image</img>
 
 = Details =
 

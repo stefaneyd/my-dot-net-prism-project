@@ -15,7 +15,6 @@ How to architect your projects so they will evolve and stand the test off time a
   * Benefits
   * Get Prism
   * How it works
-<br />
 <hr />
 === WHAT IS PRISM? ===
 Framework for developing [http://en.wikipedia.org/wiki/Composite_application composite applications].

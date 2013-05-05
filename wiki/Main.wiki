@@ -442,3 +442,60 @@ how to create custom region:
   * Register your adapter - register the adapter with bootstrapper
 
 <hr />
+=== Demo Create a custom Region ===
+
+  * Add a class to the Demo.Infrastructure project and name it StackPanelRegionAdapter
+{{{
+using Microsoft.Practices.Prism.Regions;
+using System.Windows.Controls;
+
+namespace Demo.Infrastructure
+{
+  public class StackPanelRegionAdapter : RegionAdapterBase<StackPanel>
+  {
+    public StackPanelRegionAdapter(IRegionBehaviorFactory regionFactory)
+	: base(regionBehaviorFactory)
+    {
+      
+    }
+    protected override void Adapt(IRegion region, StackPanel regionTarget)
+    {
+      region.Views.CollectionChanged += (s, e) =>
+	{
+	  if(e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+	  {
+	    foreach(FramworkElement element in e.NewItems)
+	    {
+	      regionTarget.Children.Add(element);
+	    }
+	  }
+          // TODO handle remove
+	};
+    }
+
+    protected override Iregion CreateRegion()
+    {
+      return new AllActiveRegion();
+    }
+  }
+}
+}}}
+
+  * Open Bootstrapper and override method ConfigureRegionAdapterMappings
+{{{
+using Microsoft.Practices.Prism.Regions;
+using Demo.Infrastructure;
+
+protected override Microsoft.Practices.Prism.Regions.RegionAdapterMappings ConfigureRegionAdapterMappings()
+{
+  RegionAdapterMappings mappings = base.Configure.RegionAdapterMappings();
+  mappings.RegisterMappings(typeof(StackPanel), Containter.Resolve<StackPanelRegionAdapter>());
+  return mappings;
+}
+}}}
+  * Change the content control in the Shell from DockPanel to StackPanel
+
+Steps involved in creating custom region
+  # change the control host to StackPanel
+  # Create StackPanelRegionAdapter
+  # Register the adapter in Bootstrapper

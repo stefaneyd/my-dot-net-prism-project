@@ -419,7 +419,7 @@ region.add(_container.Resolve<ToolbarView>());
 When you have a third party control or a custom control as your region host, but it has to support one of the region adapters provided by prism but if that is not the case then we can create our own custom region adapter.
 
 how to create custom region:
-  * Derive from RegionAdapterBase<T> - Create a class that derives from region adapter base
+  * Derive from {{{RegionAdapterBase<T>}}} - Create a class that derives from region adapter base
   * Implement CreateRegion method -  and return one of the three objects
     * SingleActiveRegion -  allows one active view, used for content controls
     * AllActiveRegion - keeps all the views in it active, deactivation of views are not allowed, used for items controls

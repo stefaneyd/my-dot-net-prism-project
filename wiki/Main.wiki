@@ -294,7 +294,7 @@ These regions define areas of the UI where we're gonna inject a view. Each regio
 
 <hr />
 === Region Manager ===
-is responsible for managing the regions in the application it does it by:
+is responsible for managing the regions in the application.<br> It does it by:
   * Maintains collection of regions - creates new regions for controls
   * Provides a RegionName attached property - used to create regions by applying the attach property to the host control, can be done through XAML or code.
   * Maps RegionAdapter to controls - responsible for associating region with the host control. in order to expose a UI control as a region it must have a region adapter, and each region adapter adapts a specific type of UI control.<br> *Prism Region Adapters*

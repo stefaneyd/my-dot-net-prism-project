@@ -176,3 +176,16 @@ namespace HelloWorld
 
 <hr />
 == 2. Bootstrapper and the Shell ==
+
+=== WHAT IS THE BOOTSTRAPPER? ===
+
+  * Initializes application - The bootstrapper is a class that is responsible for initializing the application.
+  * Core Services - the first thing that is initialized. (none application specific services that are from prism the library)
+    * IModuleManager - Initialize and retrieve the applications modules.
+    * IModuleCatalog - Registers the modules the application is going to load.
+    * IModuleInitializer - Initializes the modules.
+    * IRegionManager - The visual containers for the UI.
+    * IEventAggregator - Create events that are loosely coupled between the publisher and the subscriber.
+    * ILoggerFacade - Rapper for logging mechanism, to implement your own logging mechanism.
+    * IServiceLocator - Gives access to the container.
+  *Application specific services - Services that are specific to the application and common amongst all application modules.

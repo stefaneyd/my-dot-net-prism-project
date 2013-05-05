@@ -241,3 +241,9 @@ protected override void Onstartup(StartupEventArgs e)
 }}}
 
 <hr />
+=== What is the Shell? ===
+  * Main window/Page - Where the primary user interface content is contained
+  * "Master Page" - Similar to Master Page in ASP.NET, used as a template to define the overall appearance for the application.
+  * Contains Regions - Shell contains regions in which views will be injected to at runtime
+
+<hr />

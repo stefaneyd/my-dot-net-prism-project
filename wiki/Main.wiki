@@ -231,7 +231,8 @@ Next add a class to the Demo project, this is going to be the bootstrapper class
   * delete the MainWindow from the Demo project
   * in App.Xaml remove the StartupUri="MainWindow.xaml" line
   * in App.xaml.cs we  override the OnStartup method
-{{{ protected override void Onstartup(StartupEventArgs e)
+{{{ 
+protected override void Onstartup(StartupEventArgs e)
 {
 	base.OnStartup(e);
 	Bootstrapper bootstrapper = new Bootstrapper();

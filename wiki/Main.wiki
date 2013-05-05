@@ -254,7 +254,7 @@ protected override void Onstartup(StartupEventArgs e)
   * remove the height and width settings from the Shell
   * add {{{ using Microsoft.Practises.Unity }}} statement to the Bootstrapper
   * replace the code in the CreateShell method {{{ return Container.Resolve<Shell>(); }}}
-    * 'Resolve<T>' comes from the Microsoft.Practises.Unity
+    * {{{ Resolve<T> }}} comes from the Microsoft.Practises.Unity
   * override the InitializeShell method in the Bootstrapper
 {{{
 protected override void InitializeShell()

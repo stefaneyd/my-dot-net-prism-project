@@ -268,4 +268,13 @@ protected override void InitializeShell()
 }}}
 
 <hr />
-=== 3. Regions ===
+== 3. Regions ==
+
+=== Introduction ===
+These are the discussion in this section.
+  * What are Regions? - What are they and what role do they play in our application
+  * RegionManager - how it manages the regions in our Prism application
+  * RegionAdapter -  the relationship between it and RegionManager
+  * Create a Custom Region -  how to create a custom region, these are needed for regions that Prism does not support
+
+<hr />

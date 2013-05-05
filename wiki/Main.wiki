@@ -281,7 +281,7 @@ These are the discussion in this section.
 === What are Regions? ===
   * "Placeholder" for dynamic content that is going to be presented in the UI or in the Shell.Named location that you can define where a View will appear.
 
-<img src="http://s16.postimg.org/z7wwjn9j9/region.png" width="400" style="text-align:center;" />
+<img src="http://s16.postimg.org/z7wwjn9j9/region.png" width="400" style="vertical-align:middle;" />
 These regions define areas of the UI where we're gonna inject a view. Each region should be specifically named that describes the type of content that we are going to inject into that region
 
   * No knowledge of views - they have no knowledge of views

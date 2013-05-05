@@ -229,7 +229,7 @@ Next add a class to the Demo project, this is going to be the bootstrapper class
   * let it inherit the UnityBootstrapper
   * implement the abstract members
   * delete the MainWindow from the Demo project
-  * in App.Xaml remove the StartupUri="MainWindow.xaml" line
+  * in App.Xaml remove the {{{ StartupUri="MainWindow.xaml" }}} line
   * in App.xaml.cs we  override the OnStartup method
 {{{ 
 protected override void Onstartup(StartupEventArgs e)

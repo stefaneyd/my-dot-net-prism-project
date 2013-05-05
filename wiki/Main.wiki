@@ -502,3 +502,13 @@ Steps involved in creating custom region
 
 <hr />
 == 4. Modules ==
+
+=== Introduction ===
+
+This section will explain how to take the views and logic out of a large application and break them down into a smaller peaces called Modules and use the in the Prism application.
+  * What is a Module?
+  * Registering Modules
+  * Loading Modules
+  * Initializing Modules
+
+<hr />

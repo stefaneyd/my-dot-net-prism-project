@@ -247,3 +247,24 @@ protected override void Onstartup(StartupEventArgs e)
   * Contains Regions - Shell contains regions in which views will be injected to at runtime
 
 <hr />
+=== Demo Create a Unity shell ===
+
+  * add Window (WPF) to the Demo project name it Shell
+  * add {{{ <TextBlock Text="Hello World" /> }}} to the Shell
+  * remove the height and width settings from the Shell
+  * add {{{ using Microsoft.Practises.Unity }}} statement to the Bootstrapper
+  * replace the code in the CreateShell method {{{ return Container.Resolve<Shell>(); }}}
+    * Resolve<T> comes from the Microsoft.Practises.Unity
+  * override the InitializeShell method in the Bootstrapper
+{{{
+protected override void InitializeShell()
+{
+	base.InitializeShell();
+	App.Current.MainWindow = (Window)Shell; // needs using System.Windows
+	// the reason we have to cast to Window is because CreateShell returns DependecyObject and the MainWindow takes the type of Window
+
+	App.Current.MainWindow.Show();
+}
+}}}
+
+<hr />

@@ -217,3 +217,26 @@ namespace HelloWorld
     * Create Business folder
 
 <hr />
+=== Demo Create a Unity Bootstrapper ===
+
+Add a reference to to the Prism library bins;
+  * Microsoft.Practices.Prism.dll
+  * Microsoft.Practices.Prism.UnityExtensions.dll
+  * Microsoft.Practices.Unity.dll
+Next add a class to the Demo project, this is going to be the bootstrapper class.
+  * make it public
+  * add a using Microsoft.Practices.Prism.UnityExtensions
+  * let it inherit the UnityBootstrapper
+  * implement the abstract members
+  * delete the MainWindow from the Demo project
+  * in App.Xaml remove the StartupUri="MainWindow.xaml" line
+  * in App.xaml.cs we  override the OnStartup method
+    * {{{ protected override void Onstartup(StartupEventArgs e)
+{
+	base.OnStartup(e);
+	Bootstrapper bootstrapper = new Bootstrapper();
+	bootstrapper.Run();
+}
+}}}
+
+<hr />

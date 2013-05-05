@@ -281,11 +281,11 @@ These are the discussion in this section.
 === What are Regions? ===
   * "Placeholder" for dynamic content that is going to be presented in the UI or in the Shell.Named location that you can define where a View will appear.
 
-<img src="http://s16.postimg.org/z7wwjn9j9/region.png" />
+<img src="http://s16.postimg.org/z7wwjn9j9/region.png" width="400" />
 These regions define areas of the UI where we're gonna inject a view. Each region should be specifically named that describes the type of content that we are going to inject into that region
 
   * No knowledge of views - they have no knowledge of views
-<img src="http://s12.postimg.org/4r2jlczel/region2.png" />
+<img src="http://s12.postimg.org/4r2jlczel/region2.png" width="400" />
 We can redesign our Shell and it will have no impact on the region injection, no need to modify the infrastructure or module code.
 
   * Create in code or in XAML -  region is not a control, its apply to a control via the region name attach property on the region manager.

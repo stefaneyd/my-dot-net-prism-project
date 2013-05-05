@@ -194,3 +194,26 @@ namespace HelloWorld
 === BOOTSTRAPPER PROCESS ===
 
 <img src="http://s12.postimg.org/f5m45v5ml/bootstrapper_process.png" />
+
+<hr />
+=== Demo Organize your Solution ===
+  * Create new blank solution. Name "PrismDemo"
+  * Open the project directory and create two folders
+    * Libs -  Holds all the librarys that are going to be used in the application
+      * Create a folder Prism v4 for the Prism librarys and copy the Prism files that you need into that folder.
+        * Microsoft.Practices.Prism.dll
+        * Microsoft.Practices.Prism.Interactivity.dll
+        * Microsoft.Practices.Prism.MefExtensions.dll
+        * Microsoft.Practices.Prism.UnityExtensions.dll
+        * Microsoft.Practices.ServiceLocation.dll
+        * Microsoft.Practices.Unity.dll 
+    * Src
+      * Create Business folder - holds project that deal with the domain
+      * Create Modules folder that contains all the Prism modules
+  * Add a new WPF Application project to the solution  and put it in the Src folder. Name "Demo".
+  * Add a new WPF User Control Library to the solution and put it in the Src folder to. This is referred to as the Infrastructure project and that is the code that is shared and common across the application and modules. Name "Demo.Infrastructure". Delete the user control. We use the WPF User Control Library because when we add to the project we see the object that we use in WPF projects instead of Windows.Forms objects that come with the class library. 
+  * Add two solution folders to match the folder solution, helps to keep the solution organized when there are many projects in the solution.
+    * Create Modules folder
+    * Create Business folder
+
+<hr />

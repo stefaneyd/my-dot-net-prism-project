@@ -188,4 +188,4 @@ namespace HelloWorld
     * IEventAggregator - Create events that are loosely coupled between the publisher and the subscriber.
     * ILoggerFacade - Rapper for logging mechanism, to implement your own logging mechanism.
     * IServiceLocator - Gives access to the container.
-  *Application specific services - Services that are specific to the application and common amongst all application modules.
+  * Application specific services - Services that are specific to the application and common amongst all application modules.

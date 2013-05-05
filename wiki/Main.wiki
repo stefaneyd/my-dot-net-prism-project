@@ -281,7 +281,7 @@ These are the discussion in this section.
 === What are Regions? ===
   * "Placeholder" for dynamic content that is going to be presented in the UI or in the Shell.Named location that you can define where a View will appear.
 
-<img src="http://s16.postimg.org/z7wwjn9j9/region.png" width="400" style="margin-left:50px;" /><br>
+<img src="http://s16.postimg.org/z7wwjn9j9/region.png" width="400" /><br>
 These regions define areas of the UI where we're gonna inject a view. Each region should be specifically named that describes the type of content that we are going to inject into that region
 
   * No knowledge of views - they have no knowledge of views
@@ -291,3 +291,17 @@ These regions define areas of the UI where we're gonna inject a view. Each regio
   * Create in code or in XAML -  region is not a control, its apply to a control via the region name attach property on the region manager.
 
   * implements IRegion - Region implements the IRegion interface
+
+<hr />
+=== Region Manager ===
+is responsible for managing the regions in the application it does it by:
+  * Maintains collection of regions - creates new regions for controls
+  * Provides a RegionName attached property - used to create regions by applying the attach property to the host control, can be done through XAML or code.
+  * Maps RegionAdapter to controls - responsible for associating region with the host control. in order to expose a UI control as a region it must have a region adapter, and each region adapter adapts a specific type of UI control. Prism Region Adapters
+    * ContentControlRegionAdapter
+    * ItemsControlRegionAdapter
+    * SelectorRegionAdaptor
+    * TabControlRegionAdapter (Silverlight only)
+  * Provides a RegionContext attached property -  similar to dataContext in XAML, it allows you to propagate its data down the visual tree. Technik used to share data between a parent view and a child view that are hosted with in a region.
+
+<hr />

@@ -499,3 +499,6 @@ Steps involved in creating custom region
   # change the control host to StackPanel
   # Create StackPanelRegionAdapter
   # Register the adapter in Bootstrapper
+
+<hr />
+== 4. Modules ==

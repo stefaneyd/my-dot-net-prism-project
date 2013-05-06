@@ -554,3 +554,25 @@ There are some options on how to register the modules with the ModuleCatalog:
   * XAML - Then the application does not require that reference to the module
   * Configuration File (WPF) - Then the application does not require that reference to the module
   * Disk (WPF) - Use a directory on a disk and the application discovers the modules at runtime and we don't need to specify them in a file
+
+<hr />
+=== Loading Modules ===
+
+the next process in the module lifetime
+  * ~~Register Modules~~ - done
+  * ~~Discover Modules~~ - done
+  * Load Modules - All of the assemblies that contain the modules need to be loaded into memory.
+This may require the modules to be retrieved from disk
+    * From disk (WPF) - local directory or remote directory (Shared directory on a network)
+    * Downloaded from web (Silverlight)
+    * Control when to load - Prism allows us to control when to load the modules:
+      * When available - as soon as posible
+      * On-demand - when the application needs them
+      * donwnload or download in background (Silverlight)
+
+Guidelines for Loading Modules
+  * Required to run? - is it required to run the application, then it needs to be downloaded and initialized when the application runs
+  * Always used? - is it always used or almost always used then it can be downloaded in the background and initialized when it becomes awaylable.
+  * Rarely used? - download in the background and initialize on-demand
+
+When we are designing our modules consider how we are breaking the application up, consider commen usage scenarios or application startup times, that will help us how to configur our modul for downloading and initialization

@@ -707,6 +707,7 @@ The last thing in the Module Lifetime is the Initialization.
   * ~~Discover Modules~~
   * ~~Load Modules~~
   * Initialize Modules
+<img src="http://s13.postimg.org/6l1fhqlif/module_lifetime.png" width="300px" />
 
 *Initializing Modules*
   * IModule.Initialize()

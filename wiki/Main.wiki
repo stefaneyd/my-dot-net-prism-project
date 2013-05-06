@@ -651,6 +651,6 @@ protected override IModuleCatalog CreateModuleCatalog()
 {
   return Microsoft.Practices.Prism.Modularity.ModuleCatalog.CreateFromXaml(new Uri("/Demo;component/XamlCatalog.xaml", UriKind.Relative));
 }
+}}}
 
 We need to copy the module to the root of the application for this to work. Would be a good idea to create a build action to copy the modules to the application root folder
-}}}

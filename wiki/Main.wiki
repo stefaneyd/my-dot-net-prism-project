@@ -576,3 +576,21 @@ Guidelines for Loading Modules
   * Rarely used? - download in the background and initialize on-demand
 
 When we are designing our modules consider how we are breaking the application up, consider commen usage scenarios or application startup times, that will help us how to configur our modul for downloading and initialization
+
+<hr />
+=== Demo Register Load Modules in Code ===
+
+Here we are going to override the ConfigureModuleCatalog method in the Bootstrapper, and we need to add a reference to the moduleand a using statment in the Bootstrapper.
+
+{{{
+protected override void ConfigureModuleCatalog()
+{
+  Type moduleAType = typeof(ModuleAModule);
+  ModuleCatalog.AddModule(new ModuleInfo()
+  {
+    ModuleName = moduleAType.Name,
+    ModuleType = moduleAtype.AssemblyQualifiedName,
+    InitializationMode = InitializationMode.WhenAvailable
+  });
+}
+}}}

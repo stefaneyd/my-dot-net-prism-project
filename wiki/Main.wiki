@@ -9,7 +9,7 @@ This is a exercise in .NET Prism pattern library, where we follow the [http://pl
 
 === INTRODUCTION ===
 Exercise in Prism pattern library
-How to architect your projects so they will evolve and stand the test off time and don't break the second you change something. That is what Prism can give you.
+How to architect your projects so they will evolve and stand the test of time and don't break the second you change something. That is what Prism can give you.
 
   * What is Prism?
   * Benefits
@@ -31,7 +31,7 @@ just to name a few.
 
 <hr />
 === BENEFITS ===
-  * *[http://en.wikipedia.org/wiki/Code_reuse REUSE]* - It was designed around architectural design patterns such as [http://en.wikipedia.org/wiki/Separation_of_concerns separation of concerns] and [http://en.wikipedia.org/wiki/Loose_coupling loose coupling] this allows Prism to provide you with many benefits. Most common benefit when using a framework is reuse, where you can build a component once and use it multiple times in an single application or cross applications and with Prism you take it a step further where you can build a component in WPF and use it in Silverlight so it is cross platforms.
+  * *[http://en.wikipedia.org/wiki/Code_reuse REUSE]* - It was designed around architectural design patterns such as [http://en.wikipedia.org/wiki/Separation_of_concerns separation of concerns] and [http://en.wikipedia.org/wiki/Loose_coupling loose coupling] this allows Prism to provide you with many benefits. Most common benefit when using a framework is reuse, where you can build a component once and use it multiple times in a single application or cross applications and with Prism you take it a step further where you can build a component in WPF and use it in Silverlight so it is cross platforms.
   * *[http://en.wikipedia.org/wiki/Extensible_programming EXTENSIBLE]* - allows you to add new capabilityes and more easely intergrate them to your system
   * *FLEXIBLE* - can have components replaced with alternetiv implementations at runntime
   * *[http://en.wikipedia.org/wiki/Team_programming TEAM DEVELOPMENT]* - with larger projects broken down too smaller components it allows for multiple group members to work in the project at the same time
@@ -56,14 +56,14 @@ What you need:
 === DEMO INSTALLING PRISM ===
 just go through the wizard and unpack to a preferred location
 the binary's are located in the Bin folder and they are separated into they'r associated platform Desktop, Phone, Silverlight, and you can reference them from there in your project.
-You can also run the RegisterPrismBinaries.bin file in the root directory to register the binary's in Visual Studio so you don't have to brows for the bins. There are also great documentation that follows the install. There are also great examples and quickstarts that come with prism. Prism also ships with its source, the source code to prism library in the PrismLibrary folder.
+You can also run the RegisterPrismBinaries.bin file in the root directory to register the binary's in Visual Studio so you don't have to browse for the bins. There are also great documentation that follows the install. There are also great examples and quickstarts that come with prism. Prism also ships with its source, the source code to prism library in the PrismLibrary folder.
 
 <hr />
 === BUILDING BLOCKS ===
   * *Shell* - a template to define the structure of the UI, it contains Regions.
-  * *Regions* - Specify certain areas of the Shell as elements in witch you are going to inject a View at runtime.
+  * *Regions* - Specify certain areas of the Shell as elements in which you are going to inject a View at runtime.
   * *Modules* - A single major functional area at you application, ideally this module would not depend on other module to function properly. Modules will contain a number of Views.
-  * *Views* - Just a simple UI that the user interacts with. In Prism they are constructed using the MVVM desigh pattern.
+  * *Views* - Just a simple UI that the user interacts with. In Prism they are constructed using the MVVM design pattern.
   * *Bootstrapper* - A class that initializes the Prism Application. Create and configure Module catalogs your container any region adapter mappings and where you create and initialize the Shell.
 
 <hr />
@@ -512,3 +512,21 @@ This section will explain how to take the views and logic out of a large applica
   * Initializing Modules
 
 <hr />
+=== What is a Module? ===
+
+  * Building block of a Prism application, a packige that bundles up all the functionality and resources for a portion of the over all application.
+
+Current arckitecture that we whant to change:
+  *a Solution that has a Single Main Project with
+    * all the views
+    * all services
+    *all business logic
+    * and every single code that has to do with this application is in a single project
+<img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
+
+We want to identify the major functional areas of our application and start breaking them down into smaller more manageble peaces, and those peaces are called Modules
+<img src="http://s23.postimg.org/b910ma8ez/prism.png" width="400px" />
+
+  * Class library/XAP - we have broken the project down into modules and the result is a class library that can be used in other applications.
+
+  * Class that implements IModule - each module has a class that implements the IModule interface and that is what identifies it as a module to the Prism library, it has a single method in it called Initialize, which is responsible for initializing the module and integrating it into the Prism application. 

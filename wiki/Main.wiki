@@ -621,3 +621,36 @@ By default the initialization method is going to be when available but we can ch
 [ModuleDependency("")]
 public class ModuleAModule : IModule
 }}}
+
+<hr />
+=== Demo Register Load Modules from XAML ===
+
+Add a Resource Dictionary (WPF) to the shell project name it XamlCatalog. In the properties for the file set the "Build Action" to Resource. Add a namespace 
+{{{
+xmlns:Modularity="Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practices.Prism"
+}}}
+
+Replace the ResourceDictionary tags with Modularity:ModuleCatalog.
+Next we add a new ModuleInfo decloration
+{{{
+<Modularity:ModuleInfo Ref="file://ModuleA.dll" ModuleName="ModuleA" ModuleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0" InitializationMode="WhenAvailable" />
+}}}
+
+The end result
+{{{
+<Modularity:ModuleCatalog xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Modularity="Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practices.Prism">
+  <Modularity:ModuleInfo Ref="file://ModuleA.dll" ModuleName="ModuleA" ModuleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0" InitializationMode="WhenAvailable" />
+</Modularity:ModuleCatalog>
+}}}
+
+Next we open the Bootstrapper and override the CreateModuleCatalog method.
+{{{
+protected override IModuleCatalog CreateModuleCatalog()
+{
+  return Microsoft.Practices.Prism.Modularity.ModuleCatalog.CreateFromXaml(new Uri("/Demo;component/XamlCatalog.xaml", UriKind.Relative));
+}
+
+We need to copy the module to the root of the application for this to work. Would be a good idea to create a build action to copy the modules to the application root folder
+}}}

@@ -530,3 +530,14 @@ We want to identify the major functional areas of our application and start brea
   * Class library/XAP - we have broken the project down into modules and the result is a class library that can be used in other applications.
 
   * Class that implements IModule - each module has a class that implements the IModule interface and that is what identifies it as a module to the Prism library, it has a single method in it called Initialize, which is responsible for initializing the module and integrating it into the Prism application. 
+
+<hr />
+=== Demo Creating a Module ===
+
+  * Add a WPF User Control Library into the solutions module folder, call it ModuleA and save it to the module folder in our directory structure.
+  * delete the UserControl
+  * add a reference Microsoft.Practices.Prism.dll
+  * add a class and name it ModuleAModule
+  * it has to be public and implement the IModule and the Initalize method
+
+<hr />

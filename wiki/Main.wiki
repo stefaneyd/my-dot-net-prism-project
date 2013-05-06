@@ -718,3 +718,7 @@ The last thing in the Module Lifetime is the Initialization.
 
 When modules are being initialized, instances of the central module class are being created and the Initialize() method in them are being called via the IModule interface.
 The Initialize method is where we write the code that is going to Register our types, we may subscribe to services or events, we can register shared services or we can compose our views into the shell. The initialize method is where we put all our code that does all the work to get our module ready for consumptions in our Prism application.
+
+<hr />
+
+== 5. Views ==

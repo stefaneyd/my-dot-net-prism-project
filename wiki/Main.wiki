@@ -541,3 +541,16 @@ We want to identify the major functional areas of our application and start brea
   * it has to be public and implement the IModule and the Initalize method
 
 <hr />
+=== Registering Discovering Modules ===
+
+Module Lifetime - first we start by:
+  * Regiter Modulse
+  * Discover Modules
+
+All the modules that need to be loaded at runtime are defined in the ModuleCatalog, it contains information about all the modules to be loaded, their location, order to be loaded and if a module is dependent on another module. 
+
+There are some options on how to register the modules with the ModuleCatalog:
+  * Code - the shell will require a reference to the module
+  * XAML - Then the application does not require that reference to the module
+  * Configuration File (WPF) - Then the application does not require that reference to the module
+  * Disk (WPF) - Use a directory on a disk and the application discovers the modules at runtime and we don't need to specify them in a file

@@ -580,7 +580,7 @@ When we are designing our modules consider how we are breaking the application u
 <hr />
 === Demo Register Load Modules in Code ===
 
-Here we are going to override the ConfigureModuleCatalog method in the Bootstrapper, and we need to add a reference to the moduleand a using statment in the Bootstrapper.
+Here we are going to override the ConfigureModuleCatalog method in the Bootstrapper, and we need to add a reference to the module and a using statement in the Bootstrapper.
 
 {{{
 protected override void ConfigureModuleCatalog()

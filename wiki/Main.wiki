@@ -654,3 +654,47 @@ protected override IModuleCatalog CreateModuleCatalog()
 }}}
 
 We need to copy the module to the root of the application for this to work. Would be a good idea to create a build action to copy the modules to the application root folder
+
+<hr />
+=== Demo Register Load Modules from App.config File ===
+
+We start by overriding the CreateModuleCatalog method in the Bootstrapper.
+{{{
+protected override IModuleCatalog CreateModuleCatalog()
+{
+  return new ConfigurationModuleCatalog();
+}
+}}}
+
+Add App.config file to the shell project. Add configSection tag to the App.config, create a new section and give it the name "modules" and the type "Microsoft.Practices.Prism.Modularity.ModulesConfigurationSection, Microsoft.Practices.Prism".
+Now we can define the modules
+{{{
+<modules>
+  <module assemblyFile="Modules/ModuleA.dll" moduleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" moduleName="ModuleA" startupLoaded="true" />
+</modules>
+}}}
+
+end result:
+{{{
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configuration>
+    <section name="modules" type="Microsoft.Practices.Prism.Modularity.ModulesConfigurationSection, Microsoft.Practices.Prism" />
+  </configuration>
+  <modules>
+    <module assemblyFile="Modules/ModuleA.dll" moduleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" moduleName="ModuleA" startupLoaded="true" />
+  </modules>
+</configuration>
+}}}
+
+Open ModuleAModule and add a code to show MessageBox when the module initializes.
+{{{
+MessageBox.Show("ModuleA Loaded");
+}}}
+
+And lets create a post build event and go to ModuleA project properties, select the Build Events tap and put this command in the Post-build event command line: box.
+{{{
+xcopy "$(TargetDir)*.*" "$(SolutionDir)Src\Demo\bin\$(ConfigurationName)\Modules\" /Y
+}}}
+
+This command is going to copy the output of the ModuleA project into the Modules folder of our shell project.

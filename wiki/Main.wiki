@@ -524,7 +524,7 @@ Current arckitecture that we whant to change:
     * and every single code that has to do with this application is in a single project
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 
-We want to identify the major functional areas of our application and start breaking them down into smaller more manageble peaces, and those peaces are called Modules
+We want to identify the major functional areas of our application and start breaking them down into smaller more manageble peaces, and those peaces are called Modules<br>
 <img src="http://s23.postimg.org/b910ma8ez/prism.png" width="400px" />
 
   * Class library/XAP - we have broken the project down into modules and the result is a class library that can be used in other applications.

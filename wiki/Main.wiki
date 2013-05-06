@@ -594,3 +594,30 @@ protected override void ConfigureModuleCatalog()
   });
 }
 }}}
+
+<hr />
+=== Demo Register Load Modules from Directory ===
+
+To setup the Prism application to load the modules from a directory, we modify the Bootstrapper by overriding the CreateModuleCatalog method.
+
+
+{{{
+protected override void CreateModuleCatalog()
+{
+  return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };
+}
+}}}
+
+We need to make shure that we are pointing to a valid directory.
+If we whant to see it work then copy a module dll to that directory.
+To define the ModuleName and Initialization method we use attributes.
+{{{
+[Module(ModuleName="ModuleA", OnDemand=true)]
+public class ModuleAModule : IModule
+}}}
+
+By default the initialization method is going to be when available but we can change it to OnDemand in that Module attribute. If that module has some dependencies then we use this code.
+{{{
+[ModuleDependency("")]
+public class ModuleAModule : IModule
+}}}

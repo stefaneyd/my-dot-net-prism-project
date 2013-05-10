@@ -844,16 +844,6 @@ _container.RegisterType<IContentAViewViewModel, ContentAViewViewModel>();
 So whenever we ask for IContentAViewViewModel the container will resolve an instance of ContentAViewViewModel for us
 
 <hr />
-== 6. Commands ==
-When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
-In this section we go over how to communicate between modules and still maintain loose coupling.
-When we need to communicate between modules there are a couple of approaches that we can take:
-  * Commanding - supports delegate commands, composite commands
-  * Event Aggregation - 
-  * Shared Services - 
-  * Region Context - 
-
-<hr />
 === Demo Creating a View (MVVM) - View First ===
 
 In the previous demo we implemented the MVVM pattern in our Prism application using a ViewModel first approach, that is where the ViewModel is responsible for instantiating the View. Now lets take a look at more common View first approach that is when the View is responsible for instantiating the ViewModel.
@@ -891,5 +881,16 @@ _container.RegisterType<IContentAViewViewModel, ContentAViewViewModel>();
 }}}
 
 In the implementation we don't need to register our interface for the views.
+
+<hr />
+
+== 6. Commands ==
+When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
+In this section we go over how to communicate between modules and still maintain loose coupling.
+When we need to communicate between modules there are a couple of approaches that we can take:
+  * Commanding - supports delegate commands, composite commands
+  * Event Aggregation - 
+  * Shared Services - 
+  * Region Context - 
 
 <hr />

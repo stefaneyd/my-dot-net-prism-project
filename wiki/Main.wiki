@@ -739,7 +739,7 @@ Lets use Outlook as an example, when we first look at it you get the impression 
   * Email list Content area
   * Statusbar
 
-<img src="http://s10.postimg.org/4o8igle9l/outlook_Views.png" width="400px" />
+<img src="http://s10.postimg.org/4o8igle9l/outlook_Views.png" width="600px" />
 
 Even though the user sees one cohesive view it is composed of many views.
 

@@ -729,6 +729,24 @@ In this section we go over how Views work.
   * View Injection
 
 <hr />
+=== What is a View? ===
+
+  * Portion of the user interface -  smaller unit of the user interface which encapsulates a piece of functionality and decoupled from other parts of the User Interface.
+
+Lets use Outlook as an example, when we first look at it you get the impression that you only have a single View to use and interact with the application. If we analyse it more closely we can identify sections of functionality that does not have any dependencies on other parts on the View:
+  * Toolbar - probably its own view, has no dependencies on other parts of the application, its main function is to send messages of actions that need to be performed. Other parts of the application listen for specific messages and perform actions based on the message it receives
+  * Navigation area
+  * Email list Content area
+  * Statusbar
+
+<img src="http://s10.postimg.org/4o8igle9l/outlook_Views.png" width="400px" />
+
+Even though the user sees one cohesive view it is composed of many views.
+
+  * Can be made of multiple views (Composite view)
+  * UserContol, Page, DataTemplate, etc...
+  * Multiple instances - we can have tab control with number of taps in it showing the same view but they all show different data.
+  * Patterns not required
 
 <hr />
 == 6. Commands ==

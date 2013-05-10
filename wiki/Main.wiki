@@ -789,6 +789,61 @@ namespace ModuleA
 Whats happening here is when the module is created, Prism recocnizes that we are asking for IUnityContainer and provides us with one, once we have that container the Initialize mothod is going to be called and we start registering our Types with the container, once the types are registered with our container we can start using them with our module.
 
 <hr />
+=== Demo Creating a View (MVVM) ===
+
+Now we are going to change the views in this module to use the MVVM design pattern.
+
+  * Add a new Interface to the Demo.Infrastructure and name it IView.
+  * Add another Interface to Demo.Infrastructure and name it IViewModel
+  * Make sure they are both public
+  * IView is going to have IViewModel instance property
+  * IViewModel is going to have IView property, here the reference is to an interface not directly to the view
+  * Normally we would create a base class but we are going to skip that step right now
+  * Add a new interface to the ModuleA project and name it IContentAView
+  * Add another interface to the ModuleA project and name it IContentViewViewModel
+  * make them public
+  * Add reference to the Demo.Infrastructure project and the namespace
+  * Now let the IContentAView inherit the IView
+  * Open the ContentA.xaml.cs code behind file and let it inherit the IContentAView and implement it
+{{{
+public Demo.Infrastructure.IViewModel ViewModel
+{
+  get
+  {
+    return (IContentAViewViewModel)DataContext;
+  }
+  set
+  {
+    DataContext = value;
+  }
+}
+}}}
+
+  * open IContentViewViewModel and let it inherit the IViewModel and implement it
+  * Now lets create our ViewModel add a new class and name it ContentAViewViewModel, make sure its public and let it implement the IContentAViewViewModel
+  * Now we create a constructor
+{{{
+public Demo.Infrastructure.IView View { get; set; }
+
+public ContentAViewViewModel(IContentAView view)
+{
+  View = view;
+  View.ViewModel = this;
+}
+}}}
+
+
+So what's going to happen is when this ViewModel is resolved for our container it is going to see that we are asking for a view of Type IContentAView, when we get the view we are going to set the ViewModel to the current instance and when that happens the setter on the ViewModel property of the ContentA view will set the DataContext to that instance of the ViewModel, that is what binds the View and the ViewModel. But we have to register our types with our container.
+
+Open ModuleAModule class and change the initialize method
+{{{
+_container.RegisterType<IContentAView, ContentA>();
+_container.RegisterType<IContentAViewViewModel, ContentAViewViewModel>();
+}}}
+
+So whenever we ask for IContentAViewViewModel the container will resolve an instance of ContentAViewViewModel for us
+
+<hr />
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
 In this section we go over how to communicate between modules and still maintain loose coupling.

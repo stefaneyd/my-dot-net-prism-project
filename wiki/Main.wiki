@@ -883,6 +883,14 @@ _container.RegisterType<IContentAViewViewModel, ContentAViewViewModel>();
 In the implementation we don't need to register our interface for the views.
 
 <hr />
+=== View Composition ===
+  * Constructing of a view - simply the process of constructing a view
+  * Made up of many visual elements - made up of many visual elements that are loosely coupled and are often contained within the module. As these elements are created and loaded they will be displayed in regions.
+  * Displayed in Regions - which is normally hosted by the Shell and you can create and display these elements either automatically thru discovery or programmatically trug View injection
+  * View Discovery
+  * View Injection
+
+<hr />
 
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.

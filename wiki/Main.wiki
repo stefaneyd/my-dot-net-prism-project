@@ -726,8 +726,8 @@ The Initialize method is where we write the code that is going to Register our t
 <hr />
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
-In this section we go over how to communicate between modules and still maintain loos coupling.
-When we need to communicate between modules there are a couple of approaches that we can take.
+In this section we go over how to communicate between modules and still maintain loose coupling.
+When we need to communicate between modules there are a couple of approaches that we can take:
   * Commanding - supports delegate commands, composite commands
   * Event Aggregation - 
   * Shared Services - 

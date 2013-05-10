@@ -19,7 +19,7 @@ How to architect your projects so they will evolve and stand the test of time an
 <hr />
 === WHAT IS PRISM? ===
 Framework for developing [http://en.wikipedia.org/wiki/Composite_application composite applications].
-Take large applications and break it down to smaller more manageable peaces.
+Take large applications and break it down to smaller more manageable pieces.
 It is specific to WPF, Silverlight and Windows Phone 7.
 Relies on design patterns to help promote [http://en.wikipedia.org/wiki/Loose_coupling loose coupling] and [http://en.wikipedia.org/wiki/Separation_of_concerns separation  of concern].<br />
 some patterns are:
@@ -33,7 +33,7 @@ just to name a few.
 === BENEFITS ===
   * *[http://en.wikipedia.org/wiki/Code_reuse REUSE]* - It was designed around architectural design patterns such as [http://en.wikipedia.org/wiki/Separation_of_concerns separation of concerns] and [http://en.wikipedia.org/wiki/Loose_coupling loose coupling] this allows Prism to provide you with many benefits. Most common benefit when using a framework is reuse, where you can build a component once and use it multiple times in a single application or cross applications and with Prism you take it a step further where you can build a component in WPF and use it in Silverlight so it is cross platforms.
   * *[http://en.wikipedia.org/wiki/Extensible_programming EXTENSIBLE]* - allows you to add new capabilityes and more easely intergrate them to your system
-  * *FLEXIBLE* - can have components replaced with alternetiv implementations at runntime
+  * *FLEXIBLE* - can have components replaced with alternative implementations at runtime
   * *[http://en.wikipedia.org/wiki/Team_programming TEAM DEVELOPMENT]* - with larger projects broken down too smaller components it allows for multiple group members to work in the project at the same time
   * *[http://en.wikipedia.org/wiki/Software_quality QUALITY]* - Increases the quality of the code, because the application is broken down into smaller more manageable peaces, it allows common services and components to be fully tested.
 
@@ -55,7 +55,7 @@ What you need:
 <hr />
 === DEMO INSTALLING PRISM ===
 just go through the wizard and unpack to a preferred location
-the binary's are located in the Bin folder and they are separated into they'r associated platform Desktop, Phone, Silverlight, and you can reference them from there in your project.
+the binary's are located in the Bin folder and they are separated into they're associated platform Desktop, Phone, Silverlight, and you can reference them from there in your project.
 You can also run the RegisterPrismBinaries.bin file in the root directory to register the binary's in Visual Studio so you don't have to browse for the bins. There are also great documentation that follows the install. There are also great examples and quickstarts that come with prism. Prism also ships with its source, the source code to prism library in the PrismLibrary folder.
 
 <hr />
@@ -180,7 +180,7 @@ namespace HelloWorld
 === WHAT IS THE BOOTSTRAPPER? ===
 
   * Initializes application - The bootstrapper is a class that is responsible for initializing the application.
-  * Core Services - the first thing that is initialized. (none application specific services that are from prism the library)
+  * Core Services - the first thing that is initialized. (non application specific services that are from prism the library)
     * IModuleManager - Initialize and retrieve the applications modules.
     * IModuleCatalog - Registers the modules the application is going to load.
     * IModuleInitializer - Initializes the modules.
@@ -199,8 +199,8 @@ namespace HelloWorld
 === Demo Organize your Solution ===
   * Create new blank solution. Name "PrismDemo"
   * Open the project directory and create two folders
-    * Libs -  Holds all the librarys that are going to be used in the application
-      * Create a folder Prism v4 for the Prism librarys and copy the Prism files that you need into that folder.
+    * Libs -  Holds all the libraries that are going to be used in the application
+      * Create a folder Prism v4 for the Prism libraries and copy the Prism files that you need into that folder.
         * Microsoft.Practices.Prism.dll
         * Microsoft.Practices.Prism.Interactivity.dll
         * Microsoft.Practices.Prism.MefExtensions.dll
@@ -302,7 +302,7 @@ is responsible for managing the regions in the application.<br> It does it by:
     * ItemsControlRegionAdapter
     * SelectorRegionAdaptor
     * TabControlRegionAdapter (Silverlight only)
-  * Provides a RegionContext attached property -  similar to dataContext in XAML, it allows you to propagate its data down the visual tree. Technik used to share data between a parent view and a child view that are hosted with in a region.
+  * Provides a RegionContext attached property -  similar to dataContext in XAML, it allows you to propagate its data down the visual tree. Technik used to share data between a parent view and a child view that are hosted within a region.
 
 <hr />
 === Demo Creating Regions ===
@@ -344,7 +344,7 @@ xmlns:prism="http://www.codeplex.com/prism"
   <ContentControl prism:RegionManager.RegionName="ContentRegion" />
 </Dockpanel>
 }}}
-  * In the ModuleA project Create ModuleAModule.cs class and put the belowe code in it:
+  * In the ModuleA project Create ModuleAModule.cs class and put the below code in it:
 {{{
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Unity;
@@ -371,7 +371,7 @@ namespace ModuleA
   }
 }
 }}}
-  * Now lets change this a litlebit to get rid of the "magic string" like "ToolbarRegion" and "ContentRegion" and create constans instead
+  * Now lets change this a little bit to get rid of the "magic string" like "ToolbarRegion" and "ContentRegion" and create constans instead
   * Add a class the the Demo.Infrastructure project, Name RegionNames.cs
 {{{
 namespace Demo.Infrastructure
@@ -398,7 +398,7 @@ using Demo.Infrastructure;
 
 _regionManager.RegisterViewWithRegion(RegionNames.ToolbarRegion, typeof(ToolbarView));
 }}}
-  * Now we can change the layout of the Shell with out having to change any thing else.
+  * Now we can change the layout of the Shell without having to change any thing else.
 {{{
 DockPanel.Dock="Bottom"
 }}}
@@ -430,7 +430,7 @@ how to create custom region:
 <hr />
 === Custom Region ===
 
-When you have a third party control or a cutom control as your region host, but it has to support one of the region adapters provited by prism but if that is not the case then we can create our own custom region adapter.
+When you have a third party control or a custom control as your region host, but it has to support one of the region adapters provided by prism but if that is not the case then we can create our own custom region adapter.
 
 how to create custom region:
   * Derive from {{{RegionAdapterBase<T>}}} - Create a class that derives from region adapter base
@@ -514,9 +514,9 @@ This section will explain how to take the views and logic out of a large applica
 <hr />
 === What is a Module? ===
 
-  * Building block of a Prism application, a packige that bundles up all the functionality and resources for a portion of the over all application.
+  * Building block of a Prism application, a package that bundles up all the functionality and resources for a portion of the overall application.
 
-Current arckitecture that we whant to change:
+Current architecture that we want to change:
   *a Solution that has a Single Main Project with
     * all the views
     * all services
@@ -524,7 +524,7 @@ Current arckitecture that we whant to change:
     * and every single code that has to do with this application is in a single project
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 
-We want to identify the major functional areas of our application and start breaking them down into smaller more manageble peaces, and those peaces are called Modules<br>
+We want to identify the major functional areas of our application and start breaking them down into smaller more manageable peaces, and those peaces are called Modules<br>
 <img src="http://s23.postimg.org/b910ma8ez/prism.png" width="400px" />
 
   * Class library/XAP - we have broken the project down into modules and the result is a class library that can be used in other applications.
@@ -538,13 +538,13 @@ We want to identify the major functional areas of our application and start brea
   * delete the UserControl
   * add a reference Microsoft.Practices.Prism.dll
   * add a class and name it ModuleAModule
-  * it has to be public and implement the IModule and the Initalize method
+  * it has to be public and implement the IModule and the Initialize method
 
 <hr />
 === Registering Discovering Modules ===
 
 Module Lifetime - first we start by:
-  * Regiter Modulse
+  * Register Modules
   * Discover Modules
 
 All the modules that need to be loaded at runtime are defined in the ModuleCatalog, it contains information about all the modules to be loaded, their location, order to be loaded and if a module is dependent on another module. 
@@ -566,16 +566,16 @@ This may require the modules to be retrieved from disk
     * From disk (WPF) - local directory or remote directory (Shared directory on a network)
     * Downloaded from web (Silverlight)
     * Control when to load - Prism allows us to control when to load the modules:
-      * When available - as soon as posible
+      * When available - as soon as possible
       * On-demand - when the application needs them
-      * donwnload or download in background (Silverlight)
+      * download or download in background (Silverlight)
 
 Guidelines for Loading Modules
   * Required to run? - is it required to run the application, then it needs to be downloaded and initialized when the application runs
-  * Always used? - is it always used or almost always used then it can be downloaded in the background and initialized when it becomes awaylable.
+  * Always used? - is it always used or almost always used then it can be downloaded in the background and initialized when it becomes available.
   * Rarely used? - download in the background and initialize on-demand
 
-When we are designing our modules consider how we are breaking the application up, consider commen usage scenarios or application startup times, that will help us how to configur our modul for downloading and initialization
+When we are designing our modules consider how we are breaking the application up, consider common usage scenarios or application startup times, that will help us how to configure our module for downloading and initialization
 
 <hr />
 === Demo Register Load Modules in Code ===
@@ -608,8 +608,8 @@ protected override void CreateModuleCatalog()
 }
 }}}
 
-We need to make shure that we are pointing to a valid directory.
-If we whant to see it work then copy a module dll to that directory.
+We need to make sure that we are pointing to a valid directory.
+If we want to see it work then copy a module dll to that directory.
 To define the ModuleName and Initialization method we use attributes.
 {{{
 [Module(ModuleName="ModuleA", OnDemand=true)]
@@ -631,7 +631,7 @@ xmlns:Modularity="Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practi
 }}}
 
 Replace the ResourceDictionary tags with Modularity:ModuleCatalog.
-Next we add a new ModuleInfo decloration
+Next we add a new ModuleInfo declaration
 {{{
 <Modularity:ModuleInfo Ref="file://ModuleA.dll" ModuleName="ModuleA" ModuleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0" InitializationMode="WhenAvailable" />
 }}}
@@ -692,7 +692,7 @@ Open ModuleAModule and add a code to show MessageBox when the module initializes
 MessageBox.Show("ModuleA Loaded");
 }}}
 
-And lets create a post build event and go to ModuleA project properties, select the Build Events tap and put this command in the Post-build event command line: box.
+And lets create a post build event and go to ModuleA project properties, select the Build Events tab and put this command in the Post-build event command line: box.
 {{{
 xcopy "$(TargetDir)*.*" "$(SolutionDir)Src\Demo\bin\$(ConfigurationName)\Modules\" /Y
 }}}
@@ -722,3 +722,13 @@ The Initialize method is where we write the code that is going to Register our t
 <hr />
 
 == 5. Views ==
+
+<hr />
+== 6. Commands ==
+When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
+In this section we go over how to communicate between modules and still maintain loos coupling.
+When we need to communicate between modules there are a couple of approaches that we can take.
+  * Commanding - supports delegate commands, composite commands
+  * Event Aggregation - 
+  * Shared Services - 
+  * Region Context - 

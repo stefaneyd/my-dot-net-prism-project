@@ -852,3 +852,44 @@ When we need to communicate between modules there are a couple of approaches tha
   * Event Aggregation - 
   * Shared Services - 
   * Region Context - 
+
+<hr />
+=== Demo Creating a View (MVVM) - View First ===
+
+In the previous demo we implemented the MVVM pattern in our Prism application using a ViewModel first approach, that is where the ViewModel is responsible for instantiating the View. Now lets take a look at more common View first approach that is when the View is responsible for instantiating the ViewModel.
+
+  * Add a new interface to Demo.Infrastructure and name it IViewModel and make it public.
+  * Add a new interface to Demo.Infrastructure and name it IView and make it public
+  * IView should have IViewModel property
+  * But the IView will not have IViewModel property.
+  * Add a new interface to ModelA Project and name it IContentAViewViewModel make it public and implement IViewModel so we need a reference to Demo.Infrastructure and a using namespace.
+  * Add a new class to ModelA and name it ContentAViewViewModel, should be public and implement IContentAViewViewModel
+  * Add a constructor to the class 
+  * Open the code behind for the ContentA view and implement the IView interface
+{{{
+public IViewModel ViewModel
+{
+  get
+  {
+    return (IViewModel)DataContext;
+  }
+  set
+  {
+    DataContext = value;
+  }
+}
+}}}
+  * Add a parameter of the type IContentAViewViewModel to the constructor and set the ViewModel to that parameter.
+
+So what's going to happen is when we create an instance of this View, the view will create an instance of the IContentAViewViewModel and when that instance is created we are assigning that instance to the ViewModel property which is setting the DataContext to that instance. Thats where the binding between the ViewModel and the View is occurring
+
+  * Lastly we need to register our types
+{{{
+_container.RegisterType<ToolbarA>();
+_container.RegisterType<ContentA>();
+_container.RegisterType<IContentAViewViewModel, ContentAViewViewModel>();
+}}}
+
+In the implementation we don't need to register our interface for the views.
+
+<hr />

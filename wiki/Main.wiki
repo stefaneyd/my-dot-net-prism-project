@@ -749,6 +749,46 @@ Even though the user sees one cohesive view it is composed of many views.
   * Patterns not required
 
 <hr />
+=== Demo Creating a View ===
+
+Now we are going to create toolbarView and contentView. We begin by adding these views to the module "ModuleA".
+
+  * Right click on the project and add user control and name it "ToolbarA", delete the grid from the XAML and add a button instead.
+  * Add another user control and name it "ContentA" and add a TextBlock to the XAML grid.
+  * We are not using any type of pattern to create these Views. Not in this section anyway.
+  * Next we register our Views with our Container.
+  * Open ModulAModule, in the Initialize method we need to register our views with our container.
+  * Add a reference to Microsoft.Practices.Unity.dll
+  * Add the namespace using Microsoft.Practices.unity
+  * Add a private variable of IUnityContainer to the class.
+  * Now create a public constructor that takes in IUnityContainer parameter and let the class variable of IUnityContainer take the value of the constructor variable.
+  * Now we can register our views with the container in the Initialize method.
+
+{{{
+using Microsoft.Practices.Unity;
+
+namespace ModuleA
+{
+  public class ModuleAModule : IModule
+  {
+    IUnityContainer _container;
+    public ModuleAModule(IUnityContainer container)
+    {
+      _container = container;
+    }
+
+    public void Initialize()
+    {
+      _container.RegisterType<ToolbarA>();
+      _container.RegisterType<ContentA>();
+    }
+  }
+}
+}}}
+
+Whats happening here is when the module is created, Prism recocnizes that we are asking for IUnityContainer and provides us with one, once we have that container the Initialize mothod is going to be called and we start registering our Types with the container, once the types are registered with our container we can start using them with our module.
+
+<hr />
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
 In this section we go over how to communicate between modules and still maintain loose coupling.

@@ -722,6 +722,13 @@ The Initialize method is where we write the code that is going to Register our t
 <hr />
 
 == 5. Views ==
+In this section we go over how Views work.
+  * What is a View?
+  * View Composition
+  * View Discovery
+  * View Injection
+
+<hr />
 
 <hr />
 == 6. Commands ==

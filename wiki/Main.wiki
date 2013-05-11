@@ -1233,7 +1233,7 @@ public class PersonViewModel : ViewModelBase, IPersonViewModel
 }}}
 
 
-Now we can change the DelegateCommand to DelegateCommand<T>
+Now we can change the DelegateCommand to DelegateCommand{{{<T>}}}
 {{{
 public DelegateCommand<object> SaveCommand { get; set; }
 

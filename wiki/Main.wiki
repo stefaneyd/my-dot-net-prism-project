@@ -899,6 +899,24 @@ In the implementation we don't need to register our interface for the views.
   * No explicit control -  Side effect of this behaviour it we don't have explicit control of when to load and display a view inside a region
 
 <hr />
+=== Demo View Discovery ===
+
+How to implement View discovery:
+  * Open ModuleAModule class and we need to get a reference to the regionManager so we add an IRegionManager parameter to the constructor
+  * add a private class variable of the type IRegionManager
+  * And the class variable takes the value of the constructor variable
+  * now we enable view discovery for the toolbarView
+{{{
+_container.RegisterType<ToolbarA>();
+_container.RegisterType<IContentAView, ContentA>();
+_container.RegisterType<IContentAViewViewModel, ContentAViewViewModel>();
+
+_manager.RegisterViewWithRegion(RegionName.ToolbarRegion, typeof(ToolbarA));
+}}}
+
+Now when ever the region is created the region will automatically initialize and instantiate our Toolbar item. As you can see we have very limited control on how and when the toolbar is instantiated and displayed.
+
+----
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
 In this section we go over how to communicate between modules and still maintain loose coupling.

@@ -891,7 +891,7 @@ In the implementation we don't need to register our interface for the views.
   * View Injection
 
 <hr />
-View Discovery
+=== View Discovery ===
 
   * Views added automatically - With view discovery views are added to the region automatically. To enable view discovery we need to setup relationship in the region view registry between a region name and the type of view. To do this we call the RegionManager.RegisterViewWithRegion(name, type) pass in the name of the region and pass in the type.
   * RegionManager.RegisterViewWithRegion(name, type) -  typically this is done when the module initializes or when a user performs an action.

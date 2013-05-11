@@ -1014,3 +1014,244 @@ In a Prism application the command handler is often a ViewModel and doesn't have
   * DelegateCommand or DelegateCommand{{{<T>}}} - Prism provides us with two delegate commands. the difference is that the Execute and CanExcute delegate methods for the delegate command will not accept a parameter for as the delegate command of {{{<T>}}} allows us to specify the type of parameter that the Execute and CanExcute methods parameter will be.
 
 ----
+=== Demo Creating a DelegateCommand ===
+
+Lets take a look at how this application looks.
+
+  * The Shell has two regions in it, StatusBarRegion and ContentRegion.
+  * The Infrastructure project has a new ViewModelBase class, it implements the INotifyPropertyChanged and the IViewModel interfaces.
+
+{{{
+public class : ViewModelBase : IViewModel, INotifyPropertyChanged
+{
+  public IView View { get; set; }
+
+  public ViewModelBase(IView view)
+  {
+    View = view;
+    View.ViewModel = this;
+  }
+
+  public event PropertyChangedEventHandler PropertyChanged;
+  protected void OnPropertyChanged(string propertyName)
+  {
+    if(PropertyChanged != null)
+      PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+  }
+}
+}}}
+
+It has a basic constructor which wires up the view and the Views viewModel.
+
+  * The application has two modules
+  * the StatusBar Module
+  * and the People Module - it represents anything that has to do with people or a person. It has a single view in it which is a form which will be used to edit a single instance of a person class.
+
+{{{
+<Grid xName="LayoutRoot" Background="White">
+  <Grid.ColumnDefinitions>
+    <ColumnDefinition Width="Auto" />
+    <ColumnDefinition />
+  </Grid.ColumnDefinitions>
+  <Grid.RowDefinitions>
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+    <RowDefinition Height="Auto" />
+  </Grid.RowDefinitions>
+  
+  <TextBlock Text="First Name:" Margin="5" />
+  <TextBox Grid.Column="1" Text="{Binding Person.FirstName, Mode=TwoWay}" Margin="5" />
+  <TextBlock Grid.Row="1" Text="Last Name:" Margin="5" />
+  <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Person.LastName, Mode=TwoWay}" Margin="5" />
+  <TextBlock Gfid.Row="2" Text="Age:" Margin="5" />
+  <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Person.Age, Mode=TwoWay}" Margin="5" />
+  <TextBlock Grid.Row="3" Text="Last Updated:" Margin="5" />
+  <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Person.LastUpdatedDate, Mode=TwoWay}" Margin="5" />
+
+  <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Save" Margin"10" />
+</Grid>
+}}}
+
+  * That person class has been defined in our Business project.
+
+{{{
+public class Person : INotifyPropertyChanged, IDataErrorInfo
+{
+  private string _firstName;
+  public string FirstName
+  {
+    get { return _firstName; }
+    set
+    {
+      _firtsName = value;
+      OnPropertyChanged("FirstName");
+    }
+  }
+
+  private string _lastName;
+  publivc string LastName
+  {
+    get { return _lastName; }
+    set
+    {
+      _lastName = value;
+      OnPropertyChanged("LastName");
+    }
+  }
+  
+  private int _age;
+  public int Age
+  {
+    get { return _age; }
+    set
+    {
+      _age = value;
+      OnPropertyChanged("Age");
+    }
+  }
+
+  private DateTime? _lastUpdated;
+  public DateTime LastUpdated
+  {
+    get { return _lastUpdated; }
+    set
+    {
+      _lastUpdated = value;
+      OnPropertyChanged("LastUpdated");
+    }
+  }
+
+  public event PropertyChangedEventHandler PropertyChanged;
+  protected void OnPropertyChanged(string propertyname)
+  {
+    if(PropertyChanged != null)
+      PropertyChanged(this, new PropertyChangedEventArgs(propertyname));
+  }
+
+  public string Error
+  {
+    get { return null; }
+  }
+
+  public string this[string columnName]
+  {
+    get
+    {
+      string error = null;
+
+      switch(columnName)
+      {
+        case "FirstName":
+          if(string.IsNullOrEmpty(_firstName))
+          {
+            error = "First Name required";
+          }
+          break;
+        case "LastName":
+          if(string.IsNullOrEmpty(_lastName))
+          {
+            error = Last Name required";
+          }
+          break;
+        case "Age":
+          if((_age < 18) || (_age > 85))
+          {
+            error = "Age out of range.";
+          }
+          break;
+      }
+    }
+    return (error);
+  }
+}
+}}}
+
+If we run the application you can see that it is a very simple form, it has some text elements and a save button. The functionality that we want to implement for this application, is when we click the save button we want the last updated date to reflect the date when this object was saved. Lets do that now.
+
+  * Open PersonView.XAML and change the button element
+{{{
+<Button Grid.Row="4" Grid.ColumnSpan="2" Content="Save" Margin="10" Command="{Binding SaveCommand}" />
+}}}
+
+  * The SaveCommand does not exist in the ViewModel so lets create it. Open the PersonViewModel.
+{{{
+public class PersonViewModel : ViewModelBase, IPersonViewModel
+{
+  // Here we add our DelegateCommand for the SaveCommand
+  public DelegateCommand SaveCommand { get; set; }
+
+  public PersonViewModel(IPersonView view)
+	: base(view)
+  {
+    CreatePerson();
+
+    // Here we create a instance of the SaveCommand
+    // The first parameter is the method that will be executed when the command is invoked
+    // The second parameter will be the CanExcute method
+    SaveCommand = new DelegateCommand(Save, CanSave);
+  }
+
+  private void Save()
+  {
+    Person.LastUpdated = DateTime.Now;
+  }
+
+  private bool CanSave()
+  {
+    return Person.Error == null; // Can save if there are no errors
+  }
+
+  private Person _person;
+  public Person Person
+  {
+    get { return _person; }
+    set
+    {
+      _person = value;
+      _person.PropertyChanged += new System.ComponentModel.PropertyChangedEventHandler(_person_PropertyChanged);
+      OnPropertyChanged("Person");
+    }
+  }
+
+  private void _person_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+  {
+    SaveCommand.RaiseCanExecuteChanged();
+  }
+
+  private void CreatePerson()
+  {
+    Person = new Person()
+    {
+      FirstName = "Bob",
+      LastName = "Smith",
+      Age = 46
+    };
+  }
+}
+}}}
+
+
+Now we can change the DelegateCommand to DelegateCommand<T>
+{{{
+public DelegateCommand<object> SaveCommand { get; set; }
+
+// In the constuctor
+SaveCommand = new DelegateCommand<object>(Save, CanSave);
+
+// Now we can change the methods
+private void Save(object value)
+{
+  Person.LastUpdated = DateTime.Now.AddYears(Convert.toInt32(value));
+}
+
+private bool CanSave(object value)
+}}}
+
+We have to add a CommandParameter to the PersonView.XAML in the button attributes
+{{{
+<Button Grid.Row="4" Grid.Span="2" Content="Save" Margin="10" Command="{Binding SaveCommand}" CommandParameter="2"
+}}}
+
+Now when we run the application and click the button we add two years to the date. We have to have the parameter of the type object because the DelegateCommand{{{<T>}}} can't take types that are not nullable

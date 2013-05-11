@@ -56,7 +56,7 @@ What you need:
 === DEMO INSTALLING PRISM ===
 just go through the wizard and unpack to a preferred location
 the binary's are located in the Bin folder and they are separated into they're associated platform Desktop, Phone, Silverlight, and you can reference them from there in your project.
-You can also run the RegisterPrismBinaries.bin file in the root directory to register the binary's in Visual Studio so you don't have to browse for the bins. There are also great documentation that follows the install. There are also great examples and quickstarts that come with prism. Prism also ships with its source, the source code to prism library in the PrismLibrary folder.
+You can also run the !RegisterPrismBinaries.bin file in the root directory to register the binary's in Visual Studio so you don't have to browse for the bins. There are also great documentation that follows the install. There are also great examples and quickstarts that come with prism. Prism also ships with its source, the source code to prism library in the !PrismLibrary folder.
 
 <hr />
 === BUILDING BLOCKS ===

@@ -929,6 +929,58 @@ Now when ever the region is created the region will automatically initialize and
   * Can't add View to Region that hasn't been created - keep in mind that we can't add a view to a region that hasn't been created, with view discovery a view is automatically created when a region is created, but with view injection we have to be more aware of what regions have been created before we try to inject our view into it.
 
 ----
+=== Demo View Injection ===
+
+View injection gives us much more control on how and when views are created and displayed.
+
+  * Open ModuleAModule class
+
+{{{
+public void Initialize()
+{
+  _container.RegionType<ToolbarA>();
+  _container.RegionType<IContentAView, ContentA>();
+  _container.RegionType<IContentAViewViewModel, ContentAViewViewModel>();
+
+  _manager.RegisterViewWithRegion(RegionName.ToolbarRegion, typeof(ToolbarA));
+
+  // Now lets create a view injection
+  // Get an instance of the viewModel
+  var vm = _container.Resolve<IContentAViewViewModel>();
+  // now we use the viewModel to inject the view into the contentRegion
+  _manager.Regions[RegionNames.ContentRegion].Add(vm.View);
+  IRegion region = _manager.Regions[RegionName.ContentRegion];
+  region.add (vm.View);
+  // And with the instance of the region we can add View
+  // and Activate the view, getting the activeViews, Behaviors, Deactivation. So we have much more control over the region and the views with in that region
+}
+}}}
+
+  * Open IContentViewViewModel interface and add a string property named Message
+  * Open ContentAViewViewModel and implement that change. Ideally we want our ViewModels to implement the INotifyPropertyChange interface and on the setter call the IPropertyChangeEvent.
+  * Open the ContentA.XAML and set the text to bind to the message.
+{{{
+<TextBlock Text="{Binding Message}" FontSize="38" />
+}}}
+  * Now in the ModuleAModule we can sett the ViewModel Message
+
+{{{
+var vm = _container.Resolve<IContentAViewViewModel>();
+vm.Message = "First View";
+IRegion region = _manager.Regions[RegionNames.ContentRegion];
+region.Add(vm.View);
+}}}
+
+  * Now lets create another View and add it to the same region
+{{{
+var vm2 = _container.Resolve<IContentAViewViewModel>();
+vm2.Message = "Second View";
+
+region.Deactivate(vm.View);
+region.add(vm2.View);
+}}}
+
+----
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
 In this section we go over how to communicate between modules and still maintain loose coupling.

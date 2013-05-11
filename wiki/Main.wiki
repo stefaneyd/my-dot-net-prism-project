@@ -992,3 +992,16 @@ When we need to communicate between modules there are a couple of approaches tha
 
 <hr />
 ----
+=== Commanding Overview ===
+
+The most common method of communication in a Prism is Commanding.
+What is Commanding:
+  * Binds a UI gesture to action - such as Button Click to action that needs to be performed.
+  * Execute - each command has an execute method, this method is called when the method is invoked.
+  * CanExcute - command has also a CanExecute method and this method determines whether or not the command can be executed, and the element that is bound to the command will be either enabled or disabled based on the result of the CanExcute method.
+  * RoutedCommand - The most common way of creating commands is either to use the RoutedCommand or CustomCommand. RoutedCommands deliver their command messages thru UI elements in the visual tree. That means that any element outside the tree will not receive these messages. RoutedCommands require to create the handlers in the codeBehind, which is where we don't want to be placing our logic.
+  * CustomCommand - This involves creating a custom class that derives from ICommand and implements the ICommand interface. Often creating custom commands involves more work. We must provide ways for command handlers to hook up and do the routing when the command is provoked. We must also decide what criteria we will use for determining when to raise the CanExcuteChangedEvent.
+
+In a Prism application the command handler is often a ViewModel and doesn't have any association with any element in the VisualTree. Prism provides two classes that makes commanding easier and provides more functionality:
+  * DelegateCommand -  which allows you to call a delegate method when the command is executed.
+  * CompositeCommand - which allows us to combine multiple commands.

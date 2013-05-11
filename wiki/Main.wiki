@@ -917,6 +917,18 @@ _manager.RegisterViewWithRegion(RegionName.ToolbarRegion, typeof(ToolbarA));
 Now when ever the region is created the region will automatically initialize and instantiate our Toolbar item. As you can see we have very limited control on how and when the toolbar is instantiated and displayed.
 
 ----
+=== View Injection  ===
+
+  * View added programmatically - with the view injection views are added programmatically. This can also be done when a module initializes or as a result of user action. We can achieve view injection couple of different ways.
+  * RegionManager.Region["Name"].Add(view, name) -  ["Name"] is the index of region name and pass in a view and the name of the view.
+  * IRegion.Add(view, name) - Or we can get an instance of the IRegion from the RegionManager and work with the region directly.
+  * Activate/Deactivate - when adding views programmatically we may need to activate and deactivate views. For example, if we have a content control as a region which already contains a view and we add a new view to it we will need to deactivate the current view before the newly injected view is shown.
+
+  * More control - As you can see view injection gives you more control over when views are loaded and displayed, we even have the ability to remove views from the region.
+
+  * Can't add View to Region that hasn't been created - keep in mind that we can't add a view to a region that hasn't been created, with view discovery a view is automatically created when a region is created, but with view injection we have to be more aware of what regions have been created before we try to inject our view into it.
+
+----
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
 In this section we go over how to communicate between modules and still maintain loose coupling.

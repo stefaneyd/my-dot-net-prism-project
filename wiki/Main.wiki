@@ -1011,6 +1011,6 @@ In a Prism application the command handler is often a ViewModel and doesn't have
   * Uses delegates - A delegate command is a command that allows you to supply methods as delegates that will be invoked when the command is invoked.
   * Doesn't require a handler - Event handler is not required in the code behind.
   * Usually local - delegates are normally locally scoped, meaning they are created within the ViewModel, and the concerns of the delegate methods are within the context of that ViewModel.
-  * DelegateCommand or DelegateCommand'<T>' - Prism provides us with two delegate commands. the difference is that the Execute and CanExcute delegate methods for the delegate command will not accept a parameter for as the delegate command of <T> allows us to specify the type of parameter that the Execute and CanExcute methods parameter will be.
+  * DelegateCommand or DelegateCommand{{{<T>}}} - Prism provides us with two delegate commands. the difference is that the Execute and CanExcute delegate methods for the delegate command will not accept a parameter for as the delegate command of {{{<T>}}} allows us to specify the type of parameter that the Execute and CanExcute methods parameter will be.
 
 ----

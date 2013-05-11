@@ -891,7 +891,14 @@ In the implementation we don't need to register our interface for the views.
   * View Injection
 
 <hr />
+View Discovery
 
+  * Views added automatically - With view discovery views are added to the region automatically. To enable view discovery we need to setup relationship in the region view registry between a region name and the type of view. To do this we call the RegionManager.RegisterViewWithRegion(name, type) pass in the name of the region and pass in the type.
+  * RegionManager.RegisterViewWithRegion(name, type) -  typically this is done when the module initializes or when a user performs an action.
+  * Region looks for view types - when the region is created it looks for all the view types that are associated with that region and automatically instantiates and displays thous views.
+  * No explicit control -  Side effect of this behaviour it we don't have explicit control of when to load and display a view inside a region
+
+<hr />
 == 6. Commands ==
 When building a Prism application we divide the application into individual, loosely coupled modules and sometimes it is necessary to communicate between those modules. To send data, user service or correspond to an action.
 In this section we go over how to communicate between modules and still maintain loose coupling.

@@ -1,4 +1,4 @@
-#This page contains notes on the whole course
+#summary This page contains notes on the whole course
 
 = Introduction to Prism =
 

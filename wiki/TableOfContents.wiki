@@ -14,3 +14,8 @@
   * [BootstrapperAndTheShell#What_is_the_Shell? What is the Shell?]
   * [BootstrapperAndTheShell#Demo_Create_a_Unity_shell Demo Create a Unity shell]
 * [Regions Regions]
+  * [Regions#What_are_Regions? What are Regions?]
+  * [Regions#Region_Manager Region Manager]
+  * [Regions#Demo_Creating_Regions Demo Creating Regions]
+  * [Regions#Custom_Region Custom Region]
+  * [Regions#Demo_Create_a_custom_Region Demo Create a custom Region]

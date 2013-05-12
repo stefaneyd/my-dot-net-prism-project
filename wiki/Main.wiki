@@ -1266,3 +1266,101 @@ Now when we run the application and click the button we add two years to the dat
   * Supports enablement - and because compositeCommand support enablement by listening to the canExecuteChanged event of each registered child command if any call to the canExecute returns false in a child command the compositeCommand will also return false thus disabling all the invokers.
 
 ----
+=== Demo Creating a CompositeCommand ===
+
+Now let's implement a CompositeCommand. First lets look at the changes we made to our application.
+
+  * Open the Shell
+{{{
+<Window x:Class="PluralsightPrismDemo.Shell"
+	 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	 xmlns:prism="http://www.codeplex.com/prism"
+	 xmlns:inf="clr-namespace:Demo.Infrastructure;assembly=Demo.Infrastructure"
+	 Title="Shell" Height="350" Width="350">
+  <Grid>
+    <DockPanel LastChildFill="True">
+      <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.ToolbarRegion}" DockPanel.Dock="Top" Width="Auto" Height="Auto" />
+      <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.StatusBarRegion}" DockPanel.Dock="Bottom" Width="Auto" Height="Auto" />
+      <TabControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.ContentRegion}" Width="Auto" Height="Auto" HorizontalAlignment="center" />
+        <TabControl.ItemContainerStyle>
+          <Style TargetType="TabItem">
+            <Setter Property="Header" Value="{Binding Content.DataContext.ViewName, RelativeSource={RelativeSource Self}}" />
+          </Style>
+        </TabControl.ItemContainerStyle>
+      </TabControl>
+    </DockPanel>
+  </Grid>
+</Window>
+}}}
+
+  * We added a new Toolbar Module which has a single view in it that has a single button in {{{<Button> Save All</Button>}}}
+
+  * We have modified the PeopleModule
+{{{
+public class PeopleModule : IModule
+{
+  private readonly IRegionManager _regionManager;
+  private readonly IUnityContainer _container;
+
+  public PeopleModule(IUnityContainer container, IRegionManager regionManager)
+  {
+    this._container = container;
+    this._regionManager = regionManager;
+  }
+
+  public void Initialize()
+  {
+    RegisterViewsAndServices();
+
+    IRegion region = _regionManager.Regions[RegionNames.ContentRegion];
+
+    var vm = _container.Resolve<IPeronsViewModel>();
+    vm.CreatePerson("Bob", "Smith");
+
+    region.Add(vm.View);
+    region.Activate(vm.View);
+
+    var vm2 = _container.Resolve<IPersonViewModel>();
+    vm2.CreatePerson("Karl", "Sums");
+    region.Add(vm2.Vew);
+
+    var vm3 = _container.Resolve<IPersonViewModel>();
+    vm3.CreatePerson("Jeff", "Lock");
+    region.Add(vm3.View);
+  }
+
+  protected void RegisterViewsAndServices()
+  {
+    _container.RegisterType<IPersonViewModel, PersonViewModel>();
+    _container.RegisterType<IPersonView, PersonView>();
+  }
+}
+}}}
+
+  * Now we implement the Save all function.
+  * Create a new GlobalCommands class in our Infrastructure project
+{{{
+public static class GlobalCommands
+{
+  public static CompositeCommand SaveAllCommand = new CompositeCommand();
+}
+}}}
+  * Now open up the ToolbarView.xaml in our Toolbar Module and add a namespace {{{xmlns:inf="clr-namespace:Demo.Infrastructure;assembly=Demo.Infrastructure"
+  * Now set the command for the button
+{{{
+<Button Command="{x:Static inf:GlobalCommands.SaveAllCommand}">Save All</Button>
+}}}
+  * Now we have to register our ViewModel for that CompositeCommand.
+  * Open PersonViewModel in the People project and change the constructor to register the SaveCommand with the CompositeCommand
+{{{
+public PersonViewModel(IPersonView view)
+	: base(view)
+{
+  SaveCommand = new DelegateCommand(Save, CanSave);
+
+  GlobalCommands.SaveAllCommand.RegisterCommand(SaveCommand);
+}
+}}}
+
+----

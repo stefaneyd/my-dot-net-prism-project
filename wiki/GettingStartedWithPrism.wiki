@@ -80,7 +80,7 @@ You can also run the !RegisterPrismBinaries.bin file in the root directory to re
 </Window>
 }}}
 
-*HelloWorldModule.cs*
+*!HelloWorldModule.cs*
 {{{
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
@@ -104,7 +104,7 @@ namespace HelloWorldModule
 }
 }}}
 
-*HelloWorldView.xaml*
+*!HelloWorldView.xaml*
 {{{
 <UserControl x:Class="HelloWorldModule.Views.helloWorldView"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -115,7 +115,7 @@ namespace HelloWorldModule
 </UserControl>
 }}}
 
-*Bootstrapeper.cs*
+*Bootstrapper.cs*
 {{{
 using System.Windows;
 using Microsoft.Practices.Prism.Modularity;

@@ -17,29 +17,29 @@ The most common method of communication in a Prism is Commanding.
 What is Commanding:
   * Binds a UI gesture to action - such as Button Click to action that needs to be performed.
   * Execute - each command has an execute method, this method is called when the method is invoked.
-  * CanExcute - command has also a CanExecute method and this method determines whether or not the command can be executed, and the element that is bound to the command will be either enabled or disabled based on the result of the CanExcute method.
-  * RoutedCommand - The most common way of creating commands is either to use the RoutedCommand or CustomCommand. RoutedCommands deliver their command messages thru UI elements in the visual tree. That means that any element outside the tree will not receive these messages. RoutedCommands require to create the handlers in the codeBehind, which is where we don't want to be placing our logic.
-  * CustomCommand - This involves creating a custom class that derives from ICommand and implements the ICommand interface. Often creating custom commands involves more work. We must provide ways for command handlers to hook up and do the routing when the command is provoked. We must also decide what criteria we will use for determining when to raise the CanExcuteChangedEvent.
+  * !CanExcute - command has also a !CanExecute method and this method determines whether or not the command can be executed, and the element that is bound to the command will be either enabled or disabled based on the result of the !CanExcute method.
+  * !RoutedCommand - The most common way of creating commands is either to use the !RoutedCommand or !CustomCommand. !RoutedCommands deliver their command messages thru UI elements in the visual tree. That means that any element outside the tree will not receive these messages. !RoutedCommands require to create the handlers in the codeBehind, which is where we don't want to be placing our logic.
+  * !CustomCommand - This involves creating a custom class that derives from ICommand and implements the ICommand interface. Often creating custom commands involves more work. We must provide ways for command handlers to hook up and do the routing when the command is provoked. We must also decide what criteria we will use for determining when to raise the !CanExcuteChangedEvent.
 
-In a Prism application the command handler is often a ViewModel and doesn't have any association with any element in the VisualTree. Prism provides two classes that makes commanding easier and provides more functionality:
-  * DelegateCommand -  which allows you to call a delegate method when the command is executed.
-  * CompositeCommand - which allows us to combine multiple commands.
+In a Prism application the command handler is often a !ViewModel and doesn't have any association with any element in the !VisualTree. Prism provides two classes that makes commanding easier and provides more functionality:
+  * !DelegateCommand -  which allows you to call a delegate method when the command is executed.
+  * !CompositeCommand - which allows us to combine multiple commands.
 
 ----
-== DelegateCommand ===
+== !DelegateCommand ===
 
   * Uses delegates - A delegate command is a command that allows you to supply methods as delegates that will be invoked when the command is invoked.
   * Doesn't require a handler - Event handler is not required in the code behind.
-  * Usually local - delegates are normally locally scoped, meaning they are created within the ViewModel, and the concerns of the delegate methods are within the context of that ViewModel.
-  * DelegateCommand or DelegateCommand{{{<T>}}} - Prism provides us with two delegate commands. the difference is that the Execute and CanExcute delegate methods for the delegate command will not accept a parameter for as the delegate command of {{{<T>}}} allows us to specify the type of parameter that the Execute and CanExcute methods parameter will be.
+  * Usually local - delegates are normally locally scoped, meaning they are created within the !ViewModel, and the concerns of the delegate methods are within the context of that ViewModel.
+  * DelegateCommand or !DelegateCommand{{{<T>}}} - Prism provides us with two delegate commands. the difference is that the Execute and !CanExcute delegate methods for the delegate command will not accept a parameter for as the delegate command of {{{<T>}}} allows us to specify the type of parameter that the Execute and !CanExcute methods parameter will be.
 
 ----
-== Demo Creating a DelegateCommand ==
+== Demo Creating a !DelegateCommand ==
 
 Lets take a look at how this application looks.
 
-  * The Shell has two regions in it, StatusBarRegion and ContentRegion.
-  * The Infrastructure project has a new ViewModelBase class, it implements the INotifyPropertyChanged and the IViewModel interfaces.
+  * The Shell has two regions in it, !StatusBarRegion and !ContentRegion.
+  * The Infrastructure project has a new !ViewModelBase class, it implements the INotifyPropertyChanged and the IViewModel interfaces.
 
 {{{
 public class : ViewModelBase : IViewModel, INotifyPropertyChanged
@@ -64,7 +64,7 @@ public class : ViewModelBase : IViewModel, INotifyPropertyChanged
 It has a basic constructor which wires up the view and the Views viewModel.
 
   * The application has two modules
-  * the StatusBar Module
+  * the !StatusBar Module
   * and the People Module - it represents anything that has to do with people or a person. It has a single view in it which is a form which will be used to edit a single instance of a person class.
 
 {{{
@@ -190,12 +190,12 @@ public class Person : INotifyPropertyChanged, IDataErrorInfo
 
 If we run the application you can see that it is a very simple form, it has some text elements and a save button. The functionality that we want to implement for this application, is when we click the save button we want the last updated date to reflect the date when this object was saved. Lets do that now.
 
-  * Open PersonView.XAML and change the button element
+  * Open !PersonView.XAML and change the button element
 {{{
 <Button Grid.Row="4" Grid.ColumnSpan="2" Content="Save" Margin="10" Command="{Binding SaveCommand}" />
 }}}
 
-  * The SaveCommand does not exist in the ViewModel so lets create it. Open the PersonViewModel.
+  * The !SaveCommand does not exist in the !ViewModel so lets create it. Open the !PersonViewModel.
 {{{
 public class PersonViewModel : ViewModelBase, IPersonViewModel
 {
@@ -253,7 +253,7 @@ public class PersonViewModel : ViewModelBase, IPersonViewModel
 }}}
 
 
-Now we can change the DelegateCommand to DelegateCommand{{{<T>}}}
+Now we can change the !DelegateCommand to !DelegateCommand{{{<T>}}}
 {{{
 public DelegateCommand<object> SaveCommand { get; set; }
 
@@ -269,15 +269,15 @@ private void Save(object value)
 private bool CanSave(object value)
 }}}
 
-We have to add a CommandParameter to the PersonView.XAML in the button attributes
+We have to add a !CommandParameter to the !PersonView.XAML in the button attributes
 {{{
 <Button Grid.Row="4" Grid.Span="2" Content="Save" Margin="10" Command="{Binding SaveCommand}" CommandParameter="2"
 }}}
 
-Now when we run the application and click the button we add two years to the date. We have to have the parameter of the type object because the DelegateCommand{{{<T>}}} can't take types that are not nullable
+Now when we run the application and click the button we add two years to the date. We have to have the parameter of the type object because the !DelegateCommand{{{<T>}}} can't take types that are not nullable
 
 ----
-== CompositeCommand ==
+== !CompositeCommand ==
 
   * Usually global - usually globally scoped commands that exist in the infrastructure class.
   * Multiple child commands - they contain multiple child commands, for example multiple views that need to be independently saved where we have save all button.
@@ -286,9 +286,9 @@ Now when we run the application and click the button we add two years to the dat
   * Supports enablement - and because compositeCommand support enablement by listening to the canExecuteChanged event of each registered child command if any call to the canExecute returns false in a child command the compositeCommand will also return false thus disabling all the invokers.
 
 ----
-== Demo Creating a CompositeCommand ==
+== Demo Creating a !CompositeCommand ==
 
-Now let's implement a CompositeCommand. First lets look at the changes we made to our application.
+Now let's implement a !CompositeCommand. First lets look at the changes we made to our application.
 
   * Open the Shell
 {{{
@@ -316,7 +316,7 @@ Now let's implement a CompositeCommand. First lets look at the changes we made t
 
   * We added a new Toolbar Module which has a single view in it that has a single button in {{{<Button> Save All</Button>}}}
 
-  * We have modified the PeopleModule
+  * We have modified the !PeopleModule
 {{{
 public class PeopleModule : IModule
 {
@@ -359,20 +359,20 @@ public class PeopleModule : IModule
 }}}
 
   * Now we implement the Save all function.
-  * Create a new GlobalCommands class in our Infrastructure project
+  * Create a new !GlobalCommands class in our Infrastructure project
 {{{
 public static class GlobalCommands
 {
   public static CompositeCommand SaveAllCommand = new CompositeCommand();
 }
 }}}
-  * Now open up the ToolbarView.xaml in our Toolbar Module and add a namespace {{{xmlns:inf="clr-namespace:Demo.Infrastructure;assembly=Demo.Infrastructure"}}}
+  * Now open up the !ToolbarView.xaml in our Toolbar Module and add a namespace {{{xmlns:inf="clr-namespace:Demo.Infrastructure;assembly=Demo.Infrastructure"}}}
   * Now set the command for the button
 {{{
 <Button Command="{x:Static inf:GlobalCommands.SaveAllCommand}">Save All</Button>
 }}}
-  * Now we have to register our ViewModel for that CompositeCommand.
-  * Open PersonViewModel in the People project and change the constructor to register the SaveCommand with the CompositeCommand
+  * Now we have to register our !ViewModel for that !CompositeCommand.
+  * Open !PersonViewModel in the People project and change the constructor to register the !SaveCommand with the !CompositeCommand
 {{{
 public PersonViewModel(IPersonView view)
 	: base(view)
@@ -390,14 +390,14 @@ public PersonViewModel(IPersonView view)
   * Publisher and Subscribers - it is made up of publishers and subscribers. Publisher will execute an event and a subscriber will listen for that event
   * Manages memory related to eventing - memory leaks are reduced because subscribers don't need a strong reference to the publishers. Therefore we don't have to manually unsubscribe our subscribers. For further information study the Event Aggregation design pattern.
 
-Prism has a build in support for EventAggregator by providing a core service which can be retrieved thru the IEventAggregator
-  * IEventAggregator - the event aggregator is responsible for locating and building events and for keeping the  collection of events in the system. Both Publishers and Subscribers need an instance of the EventAggregator and to get that instance just request it from the container.
+Prism has a build in support for !EventAggregator by providing a core service which can be retrieved thru the IEventAggregator
+  * IEventAggregator - the event aggregator is responsible for locating and building events and for keeping the  collection of events in the system. Both Publishers and Subscribers need an instance of the !EventAggregator and to get that instance just request it from the container.
   * Multicast Pub/Sub -  It provides multicast pub/sub functionality. This means that there can be multiple publishers that raise the same event, and there can be multiple subscribers listening to that same event.
-  * Events are typed events deriving from EventBase - Events created by the Prism library are typed events. This means we can take advantage of the compile type checking, to check for error before we run the application.
-  * CompositePresentationEvent<T> -  this is the only class that Prism provides us with for creating events. This class maintains a list of subscribers and handles events dispatching to the subscribers.
+  * Events are typed events deriving from !EventBase - Events created by the Prism library are typed events. This means we can take advantage of the compile type checking, to check for error before we run the application.
+  * !CompositePresentationEvent<T> -  this is the only class that Prism provides us with for creating events. This class maintains a list of subscribers and handles events dispatching to the subscribers.
   *{{{<T>}}} is the required Payload -  the payload is what we want to send to the subscriber when the event is published.
 
-Lets look at some of the services that the EventAggregator provides.
+Lets look at some of the services that the !EventAggregator provides.
   * Publish events - we can publish event, publishers raise an event by retrieving the event from the eventAggregator and then calling the publish method.
   * Subscribe to events - subscribers can also register with an event using one of the subscribe method overloads available on the composite presentation event class, and there are a couple of ways to subscribe to an event.
   * Subscribe using a strong reference - keepSubscriberReferenceAlive

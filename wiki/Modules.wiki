@@ -32,7 +32,7 @@ We want to identify the major functional areas of our application and start brea
 == Demo Creating a Module ==
 
   * Add a WPF User Control Library into the solutions module folder, call it ModuleA and save it to the module folder in our directory structure.
-  * delete the UserControl
+  * delete the !UserControl
   * add a reference Microsoft.Practices.Prism.dll
   * add a class and name it ModuleAModule
   * it has to be public and implement the IModule and the Initialize method
@@ -44,9 +44,9 @@ Module Lifetime - first we start by:
   * Register Modules
   * Discover Modules
 
-All the modules that need to be loaded at runtime are defined in the ModuleCatalog, it contains information about all the modules to be loaded, their location, order to be loaded and if a module is dependent on another module. 
+All the modules that need to be loaded at runtime are defined in the !ModuleCatalog, it contains information about all the modules to be loaded, their location, order to be loaded and if a module is dependent on another module. 
 
-There are some options on how to register the modules with the ModuleCatalog:
+There are some options on how to register the modules with the !ModuleCatalog:
   * Code - the shell will require a reference to the module
   * XAML - Then the application does not require that reference to the module
   * Configuration File (WPF) - Then the application does not require that reference to the module
@@ -77,7 +77,7 @@ When we are designing our modules consider how we are breaking the application u
 ----
 == Demo Register Load Modules in Code ==
 
-Here we are going to override the ConfigureModuleCatalog method in the Bootstrapper, and we need to add a reference to the module and a using statement in the Bootstrapper.
+Here we are going to override the !ConfigureModuleCatalog method in the Bootstrapper, and we need to add a reference to the module and a using statement in the Bootstrapper.
 
 {{{
 protected override void ConfigureModuleCatalog()
@@ -95,7 +95,7 @@ protected override void ConfigureModuleCatalog()
 ----
 == Demo Register Load Modules from Directory ==
 
-To setup the Prism application to load the modules from a directory, we modify the Bootstrapper by overriding the CreateModuleCatalog method.
+To setup the Prism application to load the modules from a directory, we modify the Bootstrapper by overriding the !CreateModuleCatalog method.
 
 
 {{{
@@ -127,8 +127,8 @@ Add a Resource Dictionary (WPF) to the shell project name it XamlCatalog. In the
 xmlns:Modularity="Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practices.Prism"
 }}}
 
-Replace the ResourceDictionary tags with Modularity:ModuleCatalog.
-Next we add a new ModuleInfo declaration
+Replace the !ResourceDictionary tags with Modularity:!ModuleCatalog.
+Next we add a new !ModuleInfo declaration
 {{{
 <Modularity:ModuleInfo Ref="file://ModuleA.dll" ModuleName="ModuleA" ModuleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0" InitializationMode="WhenAvailable" />
 }}}
@@ -142,7 +142,7 @@ The end result
 </Modularity:ModuleCatalog>
 }}}
 
-Next we open the Bootstrapper and override the CreateModuleCatalog method.
+Next we open the Bootstrapper and override the !CreateModuleCatalog method.
 {{{
 protected override IModuleCatalog CreateModuleCatalog()
 {
@@ -155,7 +155,7 @@ We need to copy the module to the root of the application for this to work. Woul
 ----
 == Demo Register Load Modules from App.config File ==
 
-We start by overriding the CreateModuleCatalog method in the Bootstrapper.
+We start by overriding the !CreateModuleCatalog method in the Bootstrapper.
 {{{
 protected override IModuleCatalog CreateModuleCatalog()
 {
@@ -163,7 +163,7 @@ protected override IModuleCatalog CreateModuleCatalog()
 }
 }}}
 
-Add App.config file to the shell project. Add configSection tag to the App.config, create a new section and give it the name "modules" and the type "Microsoft.Practices.Prism.Modularity.ModulesConfigurationSection, Microsoft.Practices.Prism".
+Add App.config file to the shell project. Add configSection tag to the App.config, create a new section and give it the name "modules" and the type "Microsoft.Practices.Prism.Modularity.!ModulesConfigurationSection, Microsoft.Practices.Prism".
 Now we can define the modules
 {{{
 <modules>
@@ -184,7 +184,7 @@ end result:
 </configuration>
 }}}
 
-Open ModuleAModule and add a code to show MessageBox when the module initializes.
+Open ModuleAModule and add a code to show !MessageBox when the module initializes.
 {{{
 MessageBox.Show("ModuleA Loaded");
 }}}

@@ -1346,7 +1346,7 @@ public static class GlobalCommands
   public static CompositeCommand SaveAllCommand = new CompositeCommand();
 }
 }}}
-  * Now open up the ToolbarView.xaml in our Toolbar Module and add a namespace {{{xmlns:inf="clr-namespace:Demo.Infrastructure;assembly=Demo.Infrastructure"
+  * Now open up the ToolbarView.xaml in our Toolbar Module and add a namespace {{{xmlns:inf="clr-namespace:Demo.Infrastructure;assembly=Demo.Infrastructure"}}}
   * Now set the command for the button
 {{{
 <Button Command="{x:Static inf:GlobalCommands.SaveAllCommand}">Save All</Button>

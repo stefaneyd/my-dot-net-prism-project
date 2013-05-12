@@ -21,15 +21,15 @@
 
 ----
 == Demo Organize your Solution ==
-  * Create new blank solution. Name "PrismDemo"
+  * Create new blank solution. Name "!PrismDemo"
   * Open the project directory and create two folders
     * Libs -  Holds all the libraries that are going to be used in the application
       * Create a folder Prism v4 for the Prism libraries and copy the Prism files that you need into that folder.
         * Microsoft.Practices.Prism.dll
         * Microsoft.Practices.Prism.Interactivity.dll
-        * Microsoft.Practices.Prism.MefExtensions.dll
-        * Microsoft.Practices.Prism.UnityExtensions.dll
-        * Microsoft.Practices.ServiceLocation.dll
+        * Microsoft.Practices.Prism.!MefExtensions.dll
+        * Microsoft.Practices.Prism.!UnityExtensions.dll
+        * Microsoft.Practices.!ServiceLocation.dll
         * Microsoft.Practices.Unity.dll 
     * Src
       * Create Business folder - holds project that deal with the domain
@@ -45,16 +45,16 @@
 
 Add a reference to to the Prism library bins;
   * Microsoft.Practices.Prism.dll
-  * Microsoft.Practices.Prism.UnityExtensions.dll
+  * Microsoft.Practices.Prism.!UnityExtensions.dll
   * Microsoft.Practices.Unity.dll
 Next add a class to the Demo project, this is going to be the bootstrapper class.
   * make it public
-  * add a using Microsoft.Practices.Prism.UnityExtensions
-  * let it inherit the UnityBootstrapper
+  * add a using Microsoft.Practices.Prism.!UnityExtensions
+  * let it inherit the !UnityBootstrapper
   * implement the abstract members
-  * delete the MainWindow from the Demo project
+  * delete the !MainWindow from the Demo project
   * in App.Xaml remove the {{{ StartupUri="MainWindow.xaml" }}} line
-  * in App.xaml.cs we  override the OnStartup method
+  * in App.xaml.cs we  override the !OnStartup method
 {{{ 
 protected override void Onstartup(StartupEventArgs e)
 {
@@ -77,9 +77,9 @@ protected override void Onstartup(StartupEventArgs e)
   * add {{{ <TextBlock Text="Hello World" /> }}} to the Shell
   * remove the height and width settings from the Shell
   * add {{{ using Microsoft.Practises.Unity }}} statement to the Bootstrapper
-  * replace the code in the CreateShell method {{{ return Container.Resolve<Shell>(); }}}
+  * replace the code in the !CreateShell method {{{ return Container.Resolve<Shell>(); }}}
     * {{{ Resolve<T> }}} comes from the Microsoft.Practises.Unity
-  * override the InitializeShell method in the Bootstrapper
+  * override the !InitializeShell method in the Bootstrapper
 {{{
 protected override void InitializeShell()
 {

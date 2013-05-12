@@ -1,3 +1,4 @@
+* [Main Main]
 * [GettingStartedWithPrism Getting Started With Prism]
   * [GettingStartedWithPrism#WHAT_IS_PRISM? WHAT IS PRISM?]
   * [GettingStartedWithPrism#BENEFITS BENEFITS]

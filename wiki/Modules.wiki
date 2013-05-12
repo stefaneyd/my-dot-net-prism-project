@@ -1,0 +1,217 @@
+#summary One-sentence summary of this page.
+#sidebar TableOfContents
+= 4. Modules =
+
+This section will explain how to take the views and logic out of a large application and break them down into a smaller peaces called Modules and use the in the Prism application.
+  * What is a Module?
+  * Registering Modules
+  * Loading Modules
+  * Initializing Modules
+
+----
+== What is a Module? ==
+
+  * Building block of a Prism application, a package that bundles up all the functionality and resources for a portion of the overall application.
+
+Current architecture that we want to change:
+  *a Solution that has a Single Main Project with
+    * all the views
+    * all services
+    * all business logic
+    * and every single code that has to do with this application is in a single project
+<img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
+
+We want to identify the major functional areas of our application and start breaking them down into smaller more manageable peaces, and those peaces are called Modules<br>
+<img src="http://s23.postimg.org/b910ma8ez/prism.png" width="400px" />
+
+  * Class library/XAP - we have broken the project down into modules and the result is a class library that can be used in other applications.
+
+  * Class that implements IModule - each module has a class that implements the IModule interface and that is what identifies it as a module to the Prism library, it has a single method in it called Initialize, which is responsible for initializing the module and integrating it into the Prism application. 
+
+----
+== Demo Creating a Module ==
+
+  * Add a WPF User Control Library into the solutions module folder, call it ModuleA and save it to the module folder in our directory structure.
+  * delete the UserControl
+  * add a reference Microsoft.Practices.Prism.dll
+  * add a class and name it ModuleAModule
+  * it has to be public and implement the IModule and the Initialize method
+
+----
+== Registering Discovering Modules ==
+
+Module Lifetime - first we start by:
+  * Register Modules
+  * Discover Modules
+
+All the modules that need to be loaded at runtime are defined in the ModuleCatalog, it contains information about all the modules to be loaded, their location, order to be loaded and if a module is dependent on another module. 
+
+There are some options on how to register the modules with the ModuleCatalog:
+  * Code - the shell will require a reference to the module
+  * XAML - Then the application does not require that reference to the module
+  * Configuration File (WPF) - Then the application does not require that reference to the module
+  * Disk (WPF) - Use a directory on a disk and the application discovers the modules at runtime and we don't need to specify them in a file
+
+----
+== Loading Modules ==
+
+the next process in the module lifetime
+  * ~~Register Modules~~ - done
+  * ~~Discover Modules~~ - done
+  * Load Modules - All of the assemblies that contain the modules need to be loaded into memory.
+This may require the modules to be retrieved from disk
+    * From disk (WPF) - local directory or remote directory (Shared directory on a network)
+    * Downloaded from web (Silverlight)
+    * Control when to load - Prism allows us to control when to load the modules:
+      * When available - as soon as possible
+      * On-demand - when the application needs them
+      * download or download in background (Silverlight)
+
+Guidelines for Loading Modules
+  * Required to run? - is it required to run the application, then it needs to be downloaded and initialized when the application runs
+  * Always used? - is it always used or almost always used then it can be downloaded in the background and initialized when it becomes available.
+  * Rarely used? - download in the background and initialize on-demand
+
+When we are designing our modules consider how we are breaking the application up, consider common usage scenarios or application startup times, that will help us how to configure our module for downloading and initialization
+
+----
+== Demo Register Load Modules in Code ==
+
+Here we are going to override the ConfigureModuleCatalog method in the Bootstrapper, and we need to add a reference to the module and a using statement in the Bootstrapper.
+
+{{{
+protected override void ConfigureModuleCatalog()
+{
+  Type moduleAType = typeof(ModuleAModule);
+  ModuleCatalog.AddModule(new ModuleInfo()
+  {
+    ModuleName = moduleAType.Name,
+    ModuleType = moduleAtype.AssemblyQualifiedName,
+    InitializationMode = InitializationMode.WhenAvailable
+  });
+}
+}}}
+
+----
+== Demo Register Load Modules from Directory ==
+
+To setup the Prism application to load the modules from a directory, we modify the Bootstrapper by overriding the CreateModuleCatalog method.
+
+
+{{{
+protected override void CreateModuleCatalog()
+{
+  return new DirectoryModuleCatalog() { ModulePath = @".\Modules" };
+}
+}}}
+
+We need to make sure that we are pointing to a valid directory.
+If we want to see it work then copy a module dll to that directory.
+To define the ModuleName and Initialization method we use attributes.
+{{{
+[Module(ModuleName="ModuleA", OnDemand=true)]
+public class ModuleAModule : IModule
+}}}
+
+By default the initialization method is going to be when available but we can change it to OnDemand in that Module attribute. If that module has some dependencies then we use this code.
+{{{
+[ModuleDependency("")]
+public class ModuleAModule : IModule
+}}}
+
+----
+== Demo Register Load Modules from XAML ==
+
+Add a Resource Dictionary (WPF) to the shell project name it XamlCatalog. In the properties for the file set the "Build Action" to Resource. Add a namespace 
+{{{
+xmlns:Modularity="Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practices.Prism"
+}}}
+
+Replace the ResourceDictionary tags with Modularity:ModuleCatalog.
+Next we add a new ModuleInfo declaration
+{{{
+<Modularity:ModuleInfo Ref="file://ModuleA.dll" ModuleName="ModuleA" ModuleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0" InitializationMode="WhenAvailable" />
+}}}
+
+The end result
+{{{
+<Modularity:ModuleCatalog xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Modularity="Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practices.Prism">
+  <Modularity:ModuleInfo Ref="file://ModuleA.dll" ModuleName="ModuleA" ModuleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0" InitializationMode="WhenAvailable" />
+</Modularity:ModuleCatalog>
+}}}
+
+Next we open the Bootstrapper and override the CreateModuleCatalog method.
+{{{
+protected override IModuleCatalog CreateModuleCatalog()
+{
+  return Microsoft.Practices.Prism.Modularity.ModuleCatalog.CreateFromXaml(new Uri("/Demo;component/XamlCatalog.xaml", UriKind.Relative));
+}
+}}}
+
+We need to copy the module to the root of the application for this to work. Would be a good idea to create a build action to copy the modules to the application root folder
+
+----
+== Demo Register Load Modules from App.config File ==
+
+We start by overriding the CreateModuleCatalog method in the Bootstrapper.
+{{{
+protected override IModuleCatalog CreateModuleCatalog()
+{
+  return new ConfigurationModuleCatalog();
+}
+}}}
+
+Add App.config file to the shell project. Add configSection tag to the App.config, create a new section and give it the name "modules" and the type "Microsoft.Practices.Prism.Modularity.ModulesConfigurationSection, Microsoft.Practices.Prism".
+Now we can define the modules
+{{{
+<modules>
+  <module assemblyFile="Modules/ModuleA.dll" moduleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" moduleName="ModuleA" startupLoaded="true" />
+</modules>
+}}}
+
+end result:
+{{{
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+  <configuration>
+    <section name="modules" type="Microsoft.Practices.Prism.Modularity.ModulesConfigurationSection, Microsoft.Practices.Prism" />
+  </configuration>
+  <modules>
+    <module assemblyFile="Modules/ModuleA.dll" moduleType="ModuleA.ModuleAModule, ModuleA, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" moduleName="ModuleA" startupLoaded="true" />
+  </modules>
+</configuration>
+}}}
+
+Open ModuleAModule and add a code to show MessageBox when the module initializes.
+{{{
+MessageBox.Show("ModuleA Loaded");
+}}}
+
+And lets create a post build event and go to ModuleA project properties, select the Build Events tab and put this command in the Post-build event command line: box.
+{{{
+xcopy "$(TargetDir)*.*" "$(SolutionDir)Src\Demo\bin\$(ConfigurationName)\Modules\" /Y
+}}}
+
+This command is going to copy the output of the ModuleA project into the Modules folder of our shell project.
+
+----
+== Initializing Modules ==
+
+The last thing in the Module Lifetime is the Initialization.
+  * ~~Register Modules~~
+  * ~~Discover Modules~~
+  * ~~Load Modules~~
+  * Initialize Modules
+<img src="http://s13.postimg.org/6l1fhqlif/module_lifetime.png" width="300px" />
+
+*Initializing Modules*
+  * IModule.Initialize()
+  * Register types
+  * Subscribe to services or events
+  * Register shared services
+  * Compose views into shell
+
+When modules are being initialized, instances of the central module class are being created and the Initialize() method in them are being called via the IModule interface.
+The Initialize method is where we write the code that is going to Register our types, we may subscribe to services or events, we can register shared services or we can compose our views into the shell. The initialize method is where we put all our code that does all the work to get our module ready for consumptions in our Prism application.

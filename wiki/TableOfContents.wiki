@@ -7,4 +7,5 @@
   * [GettingStartedWithPrism#APPLICATION_DESIGN APPLICATION DESIGN]
   * [GettingStartedWithPrism#DEMO_PRISM_WALKTHROUGH DEMO PRISM WALKTHROUGH]
 * [BootstrapperAndTheShell Bootstrapper And The Shell]
+  * [BootstrapperAndTheShell#WHAT_IS_THE_BOOTSTRAPPER? WHAT IS THE BOOTSTRAPPER?]
 * [Regions Regions]

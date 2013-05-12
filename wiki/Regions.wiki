@@ -3,8 +3,8 @@
 
 These are the discussion in this section.
   * What are Regions? - What are they and what role do they play in our application
-  * RegionManager - how it manages the regions in our Prism application
-  * RegionAdapter -  the relationship between it and RegionManager
+  * !RegionManager - how it manages the regions in our Prism application
+  * !RegionAdapter -  the relationship between it and !RegionManager
   * Create a Custom Region -  how to create a custom region, these are needed for regions that Prism does not support
 
 ----
@@ -26,19 +26,19 @@ These regions define areas of the UI where we're gonna inject a view. Each regio
 == Region Manager ==
 is responsible for managing the regions in the application.<br> It does it by:
   * Maintains collection of regions - creates new regions for controls
-  * Provides a RegionName attached property - used to create regions by applying the attach property to the host control, can be done through XAML or code.
-  * Maps RegionAdapter to controls - responsible for associating region with the host control. in order to expose a UI control as a region it must have a region adapter, and each region adapter adapts a specific type of UI control.<br> *Prism Region Adapters*
-    * ContentControlRegionAdapter
-    * ItemsControlRegionAdapter
-    * SelectorRegionAdaptor
-    * TabControlRegionAdapter (Silverlight only)
-  * Provides a RegionContext attached property -  similar to dataContext in XAML, it allows you to propagate its data down the visual tree. Technik used to share data between a parent view and a child view that are hosted within a region.
+  * Provides a !RegionName attached property - used to create regions by applying the attach property to the host control, can be done through XAML or code.
+  * Maps !RegionAdapter to controls - responsible for associating region with the host control. in order to expose a UI control as a region it must have a region adapter, and each region adapter adapts a specific type of UI control.<br> *Prism Region Adapters*
+    * !ContentControlRegionAdapter
+    * !ItemsControlRegionAdapter
+    * !SelectorRegionAdaptor
+    * !TabControlRegionAdapter (Silverlight only)
+  * Provides a !RegionContext attached property -  similar to dataContext in XAML, it allows you to propagate its data down the visual tree. Technik used to share data between a parent view and a child view that are hosted within a region.
 
 ----
 == Demo Creating Regions ==
 
 Create a new project in the Modules folder Name it ModuleA, in that module there are two Views.
-  * ContentView.xaml
+  * !ContentView.xaml
 {{{
 <UserControl x:Class="ModuleA.ContentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/presentation"
@@ -64,7 +64,7 @@ Create a new project in the Modules folder Name it ModuleA, in that module there
   <Button Content="Toolbar Item" />
 </UserControl>
 }}}
-  * open Shell.xaml and replace the grid with DockPanel and with in the DockPanel add a ContentControl because the items we are going to inject into the Views are single instance. Thats why we use ContentControl as our region host.
+  * open Shell.xaml and replace the grid with !DockPanel and with in the !DockPanel add a !ContentControl because the items we are going to inject into the Views are single instance. Thats why we use !ContentControl as our region host.
 {{{
 // Add a namespace to the Shell
 xmlns:prism="http://www.codeplex.com/prism"
@@ -101,8 +101,8 @@ namespace ModuleA
   }
 }
 }}}
-  * Now lets change this a little bit to get rid of the "magic string" like "ToolbarRegion" and "ContentRegion" and create constans instead
-  * Add a class the the Demo.Infrastructure project, Name RegionNames.cs
+  * Now lets change this a little bit to get rid of the "magic string" like "!ToolbarRegion" and "!ContentRegion" and create constans instead
+  * Add a class the the Demo.Infrastructure project, Name !RegionNames.cs
 {{{
 namespace Demo.Infrastructure
 {
@@ -121,8 +121,8 @@ xmlns:inf="Demo.Infrastructure;assembly=Demo.Infrastructure"
 {{{
 <ContentControl DockPanel.Dock="Top" prism:RegionManager.RegionName="{x:Static inf:RegionNames.ToolbarRegion}" />
 }}}
-  * And do the same for ContentRegion
-  * Open the ModuleAModule.cs and change the region names there to.
+  * And do the same for !ContentRegion
+  * Open the !ModuleAModule.cs and change the region names there to.
 {{{
 using Demo.Infrastructure;
 
@@ -132,8 +132,8 @@ _regionManager.RegisterViewWithRegion(RegionNames.ToolbarRegion, typeof(ToolbarV
 {{{
 DockPanel.Dock="Bottom"
 }}}
-  * Now we are going add multiple item in the ToolbarRegion so we need to change from ContentControl to ItemsControl
-  * To simulate this go to ModuleAModule and change how we register the ToolbarRegion with the manager.
+  * Now we are going add multiple item in the !ToolbarRegion so we need to change from !ContentControl to !ItemsControl
+  * To simulate this go to !ModuleAModule and change how we register the !ToolbarRegion with the manager.
 {{{
 IRegion region = _regionManager.Regions[RegionNames.ToolbarRegion];
 region.add(_container.Resolve<ToolbarView>());
@@ -150,9 +150,9 @@ When you have a third party control or a custom control as your region host, but
 
 how to create custom region:
   * Derive from {{{RegionAdapterBase<T>}}} - Create a class that derives from region adapter base
-  * Implement CreateRegion method -  and return one of the three objects
-    * SingleActiveRegion -  allows one active view, used for content controls
-    * AllActiveRegion - keeps all the views in it active, deactivation of views are not allowed, used for items controls
+  * Implement !CreateRegion method -  and return one of the three objects
+    * !SingleActiveRegion -  allows one active view, used for content controls
+    * !AllActiveRegion - keeps all the views in it active, deactivation of views are not allowed, used for items controls
     * Region - allows multiple active views, used for selector control
   * Implement Adapt method -  the code that adapt the control
   * Register your adapter
@@ -164,9 +164,9 @@ When you have a third party control or a custom control as your region host, but
 
 how to create custom region:
   * Derive from {{{RegionAdapterBase<T>}}} - Create a class that derives from region adapter base
-  * Implement CreateRegion method -  and return one of the three objects
-    * SingleActiveRegion -  allows one active view, used for content controls
-    * AllActiveRegion - keeps all the views in it active, deactivation of views are not allowed, used for items controls
+  * Implement !CreateRegion method -  and return one of the three objects
+    * !SingleActiveRegion -  allows one active view, used for content controls
+    * !AllActiveRegion - keeps all the views in it active, deactivation of views are not allowed, used for items controls
     * Region - allows multiple active views, used for selector control
   * Implement Adapt method -  the code that will adapt the control
   * Register your adapter - register the adapter with bootstrapper
@@ -174,7 +174,7 @@ how to create custom region:
 <hr />
 == Demo Create a custom Region ==
 
-  * Add a class to the Demo.Infrastructure project and name it StackPanelRegionAdapter
+  * Add a class to the Demo.Infrastructure project and name it !StackPanelRegionAdapter
 {{{
 using Microsoft.Practices.Prism.Regions;
 using System.Windows.Controls;
@@ -211,7 +211,7 @@ namespace Demo.Infrastructure
 }
 }}}
 
-  * Open Bootstrapper and override method ConfigureRegionAdapterMappings
+  * Open Bootstrapper and override method !ConfigureRegionAdapterMappings
 {{{
 using Microsoft.Practices.Prism.Regions;
 using Demo.Infrastructure;
@@ -223,9 +223,9 @@ protected override Microsoft.Practices.Prism.Regions.RegionAdapterMappings Confi
   return mappings;
 }
 }}}
-  * Change the content control in the Shell from DockPanel to StackPanel
+  * Change the content control in the Shell from !DockPanel to !StackPanel
 
 Steps involved in creating custom region
-  # change the control host to StackPanel
-  # Create StackPanelRegionAdapter
+  # change the control host to !StackPanel
+  # Create !StackPanelRegionAdapter
   # Register the adapter in Bootstrapper

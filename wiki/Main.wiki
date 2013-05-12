@@ -1364,3 +1364,24 @@ public PersonViewModel(IPersonView view)
 }}}
 
 ----
+=== Event Aggregation ===
+
+  * Loosely coupled event based communication - The basic concept of Event Aggregation is that it is a loosely coupled event based communication mechanism.
+  * Publisher and Subscribers - it is made up of publishers and subscribers. Publisher will execute an event and a subscriber will listen for that event
+  * Manages memory related to eventing - memory leaks are reduced because subscribers don't need a strong reference to the publishers. Therefore we don't have to manually unsubscribe our subscribers. For further information study the Event Aggregation design pattern.
+
+Prism has a build in support for EventAggregator by providing a core service which can be retrieved thru the IEventAggregator
+  * IEventAggregator - the event aggregator is responsible for locating and building events and for keeping the  collection of events in the system. Both Publishers and Subscribers need an instance of the EventAggregator and to get that instance just request it from the container.
+  * Multicast Pub/Sub -  It provides multicast pub/sub functionality. This means that there can be multiple publishers that raise the same event, and there can be multiple subscribers listening to that same event.
+  * Events are typed events deriving from EventBase - Events created by the Prism library are typed events. This means we can take advantage of the compile type checking, to check for error before we run the application.
+  * CompositePresentationEvent<T> -  this is the only class that Prism provides us with for creating events. This class maintains a list of subscribers and handles events dispatching to the subscribers.
+  *{{{<T>}}} is the required Payload -  the payload is what we want to send to the subscriber when the event is published.
+
+Lets look at some of the services that the EventAggregator provides.
+  * Publish events - we can publish event, publishers raise an event by retrieving the event from the eventAggregator and then calling the publish method.
+  * Subscribe to events - subscribers can also register with an event using one of the subscribe method overloads available on the composite presentation event class, and there are a couple of ways to subscribe to an event.
+  * Subscribe using a strong reference - keepSubscriberReferenceAlive
+  * Event filtering
+  * Unsubscribe from events
+
+----

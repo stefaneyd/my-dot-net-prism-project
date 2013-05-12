@@ -2,7 +2,6 @@
 
 = 1. Getting started with Prism =
 
-== INTRODUCTION ==
 Exercise in Prism pattern library
 How to architect your projects so they will evolve and stand the test of time and don't break the second you change something. That is what Prism can give you.
 

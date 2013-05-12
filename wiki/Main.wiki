@@ -1255,3 +1255,14 @@ We have to add a CommandParameter to the PersonView.XAML in the button attribute
 }}}
 
 Now when we run the application and click the button we add two years to the date. We have to have the parameter of the type object because the DelegateCommand{{{<T>}}} can't take types that are not nullable
+
+----
+=== CompositeCommand ===
+
+  * Usually global - usually globally scoped commands that exist in the infrastructure class.
+  * Multiple child commands - they contain multiple child commands, for example multiple views that need to be independently saved where we have save all button.
+  * Local commands are registered with command - each view would have the local command that are defined in the viewModel register with the save all compositeCommand.
+  * When invoked, all child commands are invoked -  so when the save all command is invoked all registered child commands will also be invoked.
+  * Supports enablement - and because compositeCommand support enablement by listening to the canExecuteChanged event of each registered child command if any call to the canExecute returns false in a child command the compositeCommand will also return false thus disabling all the invokers.
+
+----

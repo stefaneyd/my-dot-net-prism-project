@@ -1,4 +1,5 @@
 #summary This page contains notes on the whole course
+#sidebar TableOfContents
 
 = 1. Getting started with Prism =
 

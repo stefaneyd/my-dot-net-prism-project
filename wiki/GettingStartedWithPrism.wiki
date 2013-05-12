@@ -11,7 +11,7 @@ How to architect your projects so they will evolve and stand the test of time an
   * Get Prism
   * How it works
 
-<hr />
+----
 == WHAT IS PRISM? ==
 Framework for developing [http://en.wikipedia.org/wiki/Composite_application composite applications].
 Take large applications and break it down to smaller more manageable pieces.
@@ -24,7 +24,7 @@ some patterns are:
   * [http://en.wikipedia.org/wiki/Model_View_ViewModel Model View ViewModel MVVM pattern]
 just to name a few.
 
-<hr />
+----
 == BENEFITS ==
   * *[http://en.wikipedia.org/wiki/Code_reuse REUSE]* - It was designed around architectural design patterns such as [http://en.wikipedia.org/wiki/Separation_of_concerns separation of concerns] and [http://en.wikipedia.org/wiki/Loose_coupling loose coupling] this allows Prism to provide you with many benefits. Most common benefit when using a framework is reuse, where you can build a component once and use it multiple times in a single application or cross applications and with Prism you take it a step further where you can build a component in WPF and use it in Silverlight so it is cross platforms.
   * *[http://en.wikipedia.org/wiki/Extensible_programming EXTENSIBLE]* - allows you to add new capabilityes and more easely intergrate them to your system
@@ -32,7 +32,7 @@ just to name a few.
   * *[http://en.wikipedia.org/wiki/Team_programming TEAM DEVELOPMENT]* - with larger projects broken down too smaller components it allows for multiple group members to work in the project at the same time
   * *[http://en.wikipedia.org/wiki/Software_quality QUALITY]* - Increases the quality of the code, because the application is broken down into smaller more manageable peaces, it allows common services and components to be fully tested.
 
-<hr />
+----
 == GET PRISM ==
 You can get the Prism library from Microsoft patterns & practices in the following link
 
@@ -47,13 +47,13 @@ What you need:
     * Microsoft Expression Blend 4
     * Windows Phone Developer Tools SDK
 
-<hr />
+----
 == DEMO INSTALLING PRISM ==
 just go through the wizard and unpack to a preferred location
 the binary's are located in the Bin folder and they are separated into they're associated platform Desktop, Phone, Silverlight, and you can reference them from there in your project.
 You can also run the !RegisterPrismBinaries.bin file in the root directory to register the binary's in Visual Studio so you don't have to browse for the bins. There are also great documentation that follows the install. There are also great examples and quickstarts that come with prism. Prism also ships with its source, the source code to prism library in the !PrismLibrary folder.
 
-<hr />
+----
 == BUILDING BLOCKS ==
   * *Shell* - a template to define the structure of the UI, it contains Regions.
   * *Regions* - Specify certain areas of the Shell as elements in which you are going to inject a View at runtime.
@@ -61,13 +61,13 @@ You can also run the !RegisterPrismBinaries.bin file in the root directory to re
   * *Views* - Just a simple UI that the user interacts with. In Prism they are constructed using the MVVM design pattern.
   * *Bootstrapper* - A class that initializes the Prism Application. Create and configure Module catalogs your container any region adapter mappings and where you create and initialize the Shell.
 
-<hr />
+----
 == APPLICATION DESIGN ==
 
 <img src="http://s17.postimg.org/brbnpypjz/app.png" width="400px"></img>
 <img src="http://s23.postimg.org/b910ma8ez/prism.png" width="400px" />
 
-<hr />
+----
 == DEMO PRISM WALKTHROUGH ==
 
 *Shell.xaml*

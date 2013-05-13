@@ -466,3 +466,12 @@ public class StatusBarViewModel : ViewModelBase, IStatusBarViewModel
   }
 }
 }}}
+
+----
+== Shared Services ==
+
+  * Custom service - is a custom class that provides functionality to other modules in a loosely coupled way. This is normally done thru an interface and is often a singleton. these services normally exist in a separate module and when these modules load we can register these services with the Service Locator.
+  * Register with a Service Locator
+  * Common Interface - when we register these services we use a common interface. This allows other modules to use our service without requiring a static reference to the service module.
+  * Concrete implementation doesn't have to be shared - nice side effect of using a common interface is that our concrete implementations don't have to be shared. Our common interface can exist in our infrastructure class while the concrete implementation will exist in the service module, and registering our service as a shared service is as easy as specifying a !ContainerControlledLifetimeManager when we register our types.
+  * !ContainerControlledLifetimeManager

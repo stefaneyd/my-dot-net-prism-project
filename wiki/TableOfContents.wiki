@@ -49,3 +49,4 @@
     * [Communication#Event_Aggregation Event Aggregation]
     * [Communication#Demo_Using_IEventAggregator Demo Using IEventAggregator]
     * [Communication#Shared_Services Shared Services]
+    * [Communication#Demo_Creating_a_Shared_Service Demo Creating a Shared Service]

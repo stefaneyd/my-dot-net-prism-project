@@ -476,8 +476,8 @@ public class StatusBarViewModel : ViewModelBase, IStatusBarViewModel
   * Concrete implementation doesn't have to be shared - nice side effect of using a common interface is that our concrete implementations don't have to be shared. Our common interface can exist in our infrastructure class while the concrete implementation will exist in the service module, and registering our service as a shared service is as easy as specifying a !ContainerControlledLifetimeManager when we register our types.
   * !ContainerControlledLifetimeManager
 
----
-=== Demo Creating a Shared Service ===
+----
+== Demo Creating a Shared Service ==
 
 Let look at how we would implement shared services
 

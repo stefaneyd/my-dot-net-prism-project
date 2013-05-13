@@ -47,3 +47,4 @@
     * [Communication#CompositeCommand CompositeCommand]
     * [Communication#Demo_Creating_a_CompositeCommand Demo Creating a CompositeCommand]
     * [Communication#Event_Aggregation Event Aggregation]
+    * [Communication#Demo_Using_IEventAggregator Demo Using IEventAggregator]

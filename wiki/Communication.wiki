@@ -475,3 +475,84 @@ public class StatusBarViewModel : ViewModelBase, IStatusBarViewModel
   * Common Interface - when we register these services we use a common interface. This allows other modules to use our service without requiring a static reference to the service module.
   * Concrete implementation doesn't have to be shared - nice side effect of using a common interface is that our concrete implementations don't have to be shared. Our common interface can exist in our infrastructure class while the concrete implementation will exist in the service module, and registering our service as a shared service is as easy as specifying a !ContainerControlledLifetimeManager when we register our types.
   * !ContainerControlledLifetimeManager
+
+---
+=== Demo Creating a Shared Service ===
+
+Let look at how we would implement shared services
+
+  * Open !PersonViewModel in our People project and take a look at the Save() function
+  * Lets create a shared service that will handle all the saving of our person objects
+  * Create a Service module project
+{{{
+public class ServicesModule : IModule
+{
+  IUnityContainer _container;
+
+  public ServicesModule(IUnityContainer container)
+  {
+    _container = container;
+  }
+
+  public void Initialize()
+  {
+  }
+}
+}}}
+  * Lets add an interface to our Infrastructure project and name it IPersonRepository.
+{{{
+public interface IPersonRepository
+{
+  int SavePerson(Person person);
+}
+}}}
+  * Now Create a class in our Service project named !PersonRepository
+{{{
+public class PersonRepository : IPersonRepository
+{
+  int count = 0;
+
+  public int SavePerson(Business.Person person)
+  {
+    count++;
+    person.LastUpdated = DateTime.Now;
+    return count;
+  }
+}
+}}}
+  * The next step is to register this with our container as a shared service.
+{{{
+public class ServicesModule: IModule
+{
+  IUnityContainer _container;
+
+  public ServicesModule(IUnityContainer container)
+  {
+    _container = container;
+  }
+
+  public void Initialize()
+  {
+    // To register this as a singleton we use new ContainerControlledLifetimeManager()
+    // This tells the container giv me the same instance every time
+    _container.RegisterType<IPersonRepository, PersonRepository>(new ContainerControlledLifetimeManager());
+  }
+}
+}}}
+  * next step is to go to our viewModel !PersonViewModel and replace the Save() method with our repository.
+{{{
+IPersonRepository _repository;
+
+public PersonViewModel(IPersonView view, IPersonRepository repository)
+	: base(view)
+{
+  _repository = repository;
+  SaveCommand = new DelegateCommand(Save, CanSave);
+}
+
+private void Save()
+{
+  int count = _repository.SavePerson(Person);
+  MessageBox.Show(count.toString());
+}
+}}}

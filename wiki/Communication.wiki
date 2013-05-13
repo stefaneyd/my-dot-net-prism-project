@@ -403,3 +403,66 @@ Lets look at some of the services that the !EventAggregator provides.
   * Subscribe using a strong reference - keepSubscriberReferenceAlive
   * Event filtering
   * Unsubscribe from events
+
+----
+== Demo Using IEventAggregator ==
+
+We are going to change the application so that whenever a person is saved we are going send that persons name to the status bar, to update the UI so the user can see what action just occurred. To do this we are going to use the Event Aggregator.
+
+  * Lets begin by adding a new class to our Infrastructure project. Name it Events, delete the default class and create this one.
+{{{
+public class PersonUpdatedEvent : CompositePresentationEvent<string> { }
+}}}
+The payload is going to be a string, we're simply going to pass the persons name. Now that we have declared the event we need to publish the event so we need to open up our viewModel the !PersonViewModel and add an IEventAggregator Property or a member.
+{{{
+IEventAggregator _eventAggregator;
+}}}
+We also have to pass IEventAggregator thru the constructor.
+{{{
+public PersonViewModel(IPersonView view, IEventAggregator eventaggregator)
+	: base(view)
+{
+  _eventAggregator = eventaggregator;
+  Savecommand = new DelegateCommand(Save, CanSave);
+
+  GlobalCommands.SaveAllCommand.registerCommand(SaveCommand);
+}
+}}}
+Now what needs to happen is when a person is saved we need to send a message with the person name.
+{{{
+private void Save()
+{
+  Person.LastUpdated = Datetime.Now;
+  _eventAggregator.getEvent<PersonUpdatedEvent>().Publish(String.Format("{0}, {1}", Person.LastName, Person.FirstName));
+}
+}}}
+Now that we have published the event we need a subscriber to that event. So we go to our !StatusBar module project and open the viewModel !StatusBarViewModel.
+{{{
+public class StatusBarViewModel : ViewModelBase, IStatusBarViewModel
+{
+  IEventAggregator _eventAggregator;
+  
+  public StatusBarviewModel(IStatusBarview view, IEventAggregator eventAggregator)
+	: base(view)
+  {
+    _eventAggregator = eventAggregator;
+    _eventAggregator.GetEvent<PersonUpdatedEvent>().Subscribe(PersonUpdated);
+  }
+
+  private string _message = "Ready";
+  public string Message
+  {
+    get { return _message; }
+    set
+    {
+      _message = value;
+      OnPropertyChanged("Message");
+    }
+  }
+
+  private void PersonUpdated(string obj)
+  {
+    Message = String.Format("{0} was updated.", obj);
+  }
+}
+}}}

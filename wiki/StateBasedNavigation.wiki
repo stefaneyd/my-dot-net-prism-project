@@ -10,3 +10,22 @@ Designing navigation for our application is probably one of the most important a
   * user interaction - and we are going to see how we can give users the ability to perform tasks that are related to a view.
 
 ----
+== What is State-Based Navigation  ==
+
+When most people think about navigation they focus on menus as a way to move from one view to another view.
+  * State changes to existing controls - but in state-based navigation, navigation is accomplished by applying state changes to existing controls that exist in a view. This may include hiding controls or showing controls or applying animations to controls.
+  * Doesn't replace a view - the key here is that a view is not replaced by another view. Instead the view is updated.
+  * View is updated - this is done either through
+    * State changes in !ViewModel - for example we may have a property in our viewModel called !IsBusy, and when that !IsBusy property is set to true our view is updated to reflect some type of process indicator, and when the !IsBusy is set to false the view is updated to reflect that no process is occurring and will hide the indicator.
+    * User interaction - it can also be accomplished with user interaction, so the user may click a button or drag and drop an element, but the user performs some type of interaction which causes the view to update itself to reflect those changes.
+  Easiest to implement - State-Based Navigation is probably the easiest type of navigation to implement. The majority of view updates can be accomplished with simple data binding, styles, triggers, we can even enlist the help of expression-blends behavior for animations.
+
+*State-Base Navigation - When to use it*
+  * Use it 
+    * Same data, different style
+    * Change layout based on state
+    * Perform related tasks
+  * Don't use it 
+    * Different data
+    * Different task
+    * Complex state changes

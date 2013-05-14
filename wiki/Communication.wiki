@@ -566,3 +566,124 @@ There may be some scenarios where we might want to share contextual information 
   * Expose in Code - or code
   * Only supports !DependencyObjects - Prism only supports consuming the region context from a view inside a region only if that view is a !DependencyObject. If we are using dataTemplates that are not !DependencyObject we may need to create a custom region behavior to forward to the region context in order to view your objects.
   * Don't use !DataContext - the !DataContext is commonly used to bind the viewModel to a view. so this means that your dataContext is now storing the views entire viewModel
+
+----
+== Demo Using the !RegionContext ==
+
+
+  * Lets look at how we use the region context, our People module is a little different than what we have seen in the past.
+  * We have a !PeopleView
+{{{
+<UserControl x:Class="Demo.People.PeopleView"
+	     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	     xmlns:prism="http://www.codeplex.com/prism">
+  <Grid x:Name="LayoutRoot" Background="White" Margin="10">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="100" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <ListBox x:Name="_listOfPeople" Itemsource="{Binding People}" />
+    <ContentControl Grid.row="1" Margin="10" prism:RegionManager.RegionName="PersonDetailsRegion" />
+  </Grid>
+</UserControl>
+}}}
+  * And then we have the !PersonDetailsView
+{{{
+<UserControl x:Class="PluralsightPrismDemo.People.PersonDetailsView"
+	     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Grid x:Name="LayoutRoot" Background="White">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Whidth="Auto" />
+      <ColumnDefinition />
+    </Grid.ColumnDefintions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+    </Grid.ColumnDefinitions>
+    
+    <TextBlock Text="First Name:" Margion="5" />
+    <TextBox Grid.Column="1" Margin="5" Text="{Binding SelectedPerson.FirstName, Mode=TwoWay}" />
+
+    <TextBlock Grid.Row="1" Text="Last Name:" Margin="5" />
+    <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding SelectedPerson.FirstName, Mode=TwoWay}" />
+
+    <TextBlock Grid.Row="2" Text="Age:" Margin="5" />
+    <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding SelectedPerson.Age, Mode=TwoWay}" />
+
+    <TextBlock Grid.Row="3" Text="Last Updated:" Margin="5" />
+    <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding SelectedPerson.LastUpdate, Mode=TwoWay}" />
+  </Grid>
+</UserControl>
+}}}
+  * This detail View is being resolved a little differently from the people view, this is using view first approach. The view is going to resolve the viewModel.
+{{{
+public partial class PersonDetailsView : UserControl, IPersonDetailsView
+{
+  public PersonDetailsView(IPersonDetailsViewModel viewModel)
+  {
+    InitializeComponent();
+    
+    ViewModel = viewModel;
+    ViewModel.View = this;
+  }
+
+  public IViewModel ViewModel
+  {
+    get { return (IViewModel)DataContext; }
+    set { Datacontext = value; }
+  }
+}
+}}}
+  * Now lets change the !PeopleView !ContentControl
+{{{
+<ContentControl Grid.Row="1" Margin="10"
+		prism:RegionManager.RegionName="PersonDetailsRegion"
+		prism:RegionManager.RegionContext="{Binding SelectedItem, ElementName=_listOfPeople}" />
+}}}
+  * Now lets change the !PersonDetailsView.xaml.cs
+{{{
+public PersonDetailsView(IPersonDetailsViewModel viewModel)
+{
+  InitializeComponent();
+  
+  ViewModel = viewModel;
+  ViewModel.View = this;
+
+  RegionContext.GetObservableContext(this).PropertyChanged += (s, e) =>
+	{
+	  var context = (ObservableObject<object>)s;
+	  var selectedPerson = (Person)context.Value;
+	  (ViewModel as IPersonDetailsViewModel).SelectedPerson = selectedPerson;
+	};
+}
+}}}
+
+  * This is how the !PersonDetailsViewModel class looks like
+{{{
+public class PersonDetailsViewModel : ViewModelBase, IPersonDetailsViewModel
+{
+  private Person _SelectedPerson;
+  public Person SelectedPerson
+  {
+    get { return _SelectedPerson; }
+    set
+    {
+      _SelectedPerson = value;
+      OnPropertyChanged("SelectedPerson");
+    }
+  }
+}
+}}}
+  * And this is how the interface looks like
+{{{
+public interface IPersonDetailsViewModel : IViewModel
+{
+  Person SelectedPerson { get; set; }
+}
+}}}

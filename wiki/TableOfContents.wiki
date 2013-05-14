@@ -51,3 +51,4 @@
     * [Communication#Shared_Services Shared Services]
     * [Communication#Demo_Creating_a_Shared_Service Demo Creating a Shared Service]
     * [Communication#Region_Context Region Context]
+    * [Communication#Demo_Using_the_RegionContext Demo Using the RegionContext]

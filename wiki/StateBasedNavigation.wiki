@@ -1,0 +1,12 @@
+#summary One-sentence summary of this page.
+#sidebar TableOfContents
+
+ = 7. State-Based Navigation = 
+
+Designing navigation for our application is probably one of the most important aspects of our application design. In this section we are going to go over how we implement State-Based Navigation in our Prism application.
+  * State-Based Navigation - what is state-based navigation
+  * Reflecting application state - we are going to implement state-based navigation to reflect application state.
+  * Displaying data - We are going to see how to display data in different formats and layouts
+  * user interaction - and we are going to see how we can give users the ability to perform tasks that are related to a view.
+
+----

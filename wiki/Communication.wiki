@@ -556,3 +556,13 @@ private void Save()
   MessageBox.Show(count.toString());
 }
 }}}
+
+----
+== Region Context ==
+
+There may be some scenarios where we might want to share contextual information between a view that is hosting a region and a view that is inside that region.
+  *Share an object between the region host and views inside the region - which is a technique that can be used to share context between a parent view and child views that are hosted in a region.
+  * Expose in XAML - we can expose this object either in XAML or
+  * Expose in Code - or code
+  * Only supports !DependencyObjects - Prism only supports consuming the region context from a view inside a region only if that view is a !DependencyObject. If we are using dataTemplates that are not !DependencyObject we may need to create a custom region behavior to forward to the region context in order to view your objects.
+  * Don't use !DataContext - the DataContext is commonly used to bind the viewModel to a view. so this means that your dataContext is now storing the views entire viewModel

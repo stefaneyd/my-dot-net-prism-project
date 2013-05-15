@@ -56,3 +56,4 @@
     * [StateBasedNavigation#What_is_State-Based_Navigation What is State-Based Navigation]
     * [StateBasedNavigation#Demo_Reflection_Application_State Demo Reflection Application State]
     * [StateBasedNavigation#Demo_Displaying_data_in_different_layouts Demo Displaying data in different layouts]
+    * [StateBasedNavigation#Demo_User_Interaction Demo User Interaction]

@@ -422,7 +422,7 @@ private bool CanEditPerson()
   </Grid>
 }}}
 
-  * Now the !WindowState is either Open or Closed so we need a way to show and hide this dialog, so we create a new property in our modelView !ContentAViewViewModel.
+  * Now the !WindowState is either Open or Closed so we need a way to show and hide this dialog, so we create a new property in our modelView ContentAViewViewModel.
 {{{
 private WindowState _WindowState;
 public WindowState WindowState

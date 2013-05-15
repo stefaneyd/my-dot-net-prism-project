@@ -271,7 +271,7 @@ private void LoadPeople()
 
 Another common use of state-base navigation is when you want to display the same data but in a different format or layout. So in this demo we are going to take that list of people that we have and we are going to give the user the ability to view that list as rows of icons instead. And we want to provide this ability without any type viewModel interaction, we want this to be controlled with the view only. So we are going to enlist the help of triggers and styles. Now there are many ways to do this, but the approach that I'm going to show you is the most straightforward.
 
-  * Now lets add a button to !ContentAView.xaml
+  * Now lets add a button to ContentAView.xaml
 {{{
 <ToggleButton x:Name="switchViewsToggleButton" Margin="4">
   <ToggleButton.Style>
@@ -289,7 +289,7 @@ Another common use of state-base navigation is when you want to display the same
 </ToggleButton>
 }}}
 
-  * Now lets add an !ItemTemplate to !ContentAView.xaml
+  * Now lets add an !ItemTemplate to ContentAView.xaml
 {{{
 <DataTemplate x:Key="personIconTemplate">
   <StackPanel Margin="5" Width="100">
@@ -310,7 +310,7 @@ Another common use of state-base navigation is when you want to display the same
 </DataTemplate>
 }}}
 
-  * The last step is we need to create a style for the ListBox, which is going to use triggers to switch out the itemTemplate. So We need to remove the ListBox ItemTemplate and put in the style instead.
+  * The last step is we need to create a style for the !ListBox, which is going to use triggers to switch out the itemTemplate. So We need to remove the !ListBox !ItemTemplate and put in the style instead.
 {{{
 <ListBox ItemSource="{Binding People}">
   <ListBox.Style>

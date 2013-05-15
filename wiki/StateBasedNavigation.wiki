@@ -335,3 +335,114 @@ Another common use of state-base navigation is when you want to display the same
   </ListBox.Style>
 </ListBox>
 }}}
+
+----
+== Demo User Interaction ==
+
+What this application needs now is the ability to edit one of these people. So in order to support editing task using state-based navigation I know I'm going to show some type of module or none module editing window. I'm also going to need to provide a button in order to invoke an editing action.
+
+  * lets open the viewModel ContentAViewViewModel
+{{{
+public DelegateCommand EditPersonCommand { get; private set; }
+
+// And in the Constructor
+public ContentAViewViewModel(IPersonService personService)
+{
+  _personService = personService;
+  LoadPeople();
+  EditPersonCommand = new DelegateCommand(EditPerson, CanEditPerson);
+
+// Create the EditPerson and CanEditPerson methods
+private void EditPerson()
+{
+
+}
+private bool CanEditPerson()
+{
+  return true;
+}
+}
+}}}
+  * Now let open up the View ContentAView.xaml
+{{{
+// In the StackPanel under the last ToggleButton
+<Button Command="{Binding EditPersonCommand}" Content="Edit Person" Margin="4" />
+}}}
+  * We need to know what person is selected so we add another property
+{{{
+private Person _SelectedPerson;
+public Person SelectedPerson
+{
+  get { return _SelectedPerson; }
+  set
+  {
+    _SelectedPerson = value;
+    EditPersonCommand.RaisCanExecuteChanged();
+    OnPropertyChanged("SelectedPerson");
+  }
+}
+}}}
+  * Now we can bind our !ListBox selectedItem property to the selected person property in our viewModel.
+{{{
+<ListBox ItemSource="{Binding People}" SelectedItem="{Binding SelectedPerson}">
+}}}
+  * Lets change the !CanEditPerson() method
+{{{
+private bool CanEditPerson()
+{
+  return SelectedPerson != null;
+}
+}}}
+  * Now to implement the !EditPerson we are going to use the extendedWPFToolkit and use a control in the toolkit called the childWindow place it under the stackPanel
+{{{
+<extToolkit:ChildWindow Grid.Row="1" Caption="Edit Person" IsModal="True" WindowsStartupLocation="Center" WindowsState="Open">
+  <Grid DataContext="{Binding SelectedPerson}" Margin="15">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="Auto" />
+      <ColumnDefinition Width="*" />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
+
+    <TextBlock Text="First Name:" />
+    <TextBox Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" />
+
+    <TextBlock Text="Last Name:" Grid.Row="1" />
+    <TextBox Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1" />
+
+    <TextBlock Text="Age:" Grid.Row="2" />
+    <TextBox Text="{Binding Age, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1" />
+
+    <TextBlock Text="Email:" Grid.Row="3" />
+    <TextBox Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3" Grid.Column="1" />
+  </Grid>
+}}}
+
+  * Now the !WindowState is either Open or Closed so we need a way to show and hide this dialog, so we create a new property in our modelView !ContentAViewViewModel.
+{{{
+private WindowState _WindowState;
+public WindowState WindowState
+{
+  get { return _WindowState; }
+  set
+  {
+    _WindowState = value;
+    OnPropertyChanged("WindowState");
+  }
+}
+
+// and we change the EditPerson() method
+private void EditPerson()
+{
+  WindowState = Microsoft.Windows.Controls.WindowState.Open;
+}
+}}}
+
+  * Now we change the !WindowState
+{{{
+WindowState="{Binding WindowState}"
+}}}

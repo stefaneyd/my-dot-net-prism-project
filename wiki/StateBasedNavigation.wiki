@@ -265,3 +265,73 @@ private void LoadPeople()
 {{{
 <ToggleButton IsChecked="{Binding IsBusy}" Content="IsBusy" Margin="4" />
 }}}
+
+----
+== Demo Displaying data in different layouts ==
+
+Another common use of state-base navigation is when you want to display the same data but in a different format or layout. So in this demo we are going to take that list of people that we have and we are going to give the user the ability to view that list as rows of icons instead. And we want to provide this ability without any type viewModel interaction, we want this to be controlled with the view only. So we are going to enlist the help of triggers and styles. Now there are many ways to do this, but the approach that I'm going to show you is the most straightforward.
+
+  * Now lets add a button to !ContentAView.xaml
+{{{
+<ToggleButton x:Name="switchViewsToggleButton" Margin="4">
+  <ToggleButton.Style>
+    <Style TargetType="ToggleButton">
+      <Style.Triggers>
+        <Trigger Property="IsChecked" Value="True">
+          <Setter Property="Content" Value="Show List" />
+        </Trigger>
+        <Trigger Property="IsChecked" Value="False">
+          <Setter Property="Content" Value="Show Icons" />
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </ToggleButton.Style>
+</ToggleButton>
+}}}
+
+  * Now lets add an !ItemTemplate to !ContentAView.xaml
+{{{
+<DataTemplate x:Key="personIconTemplate">
+  <StackPanel Margin="5" Width="100">
+    <Image Source="{Binding ImagePath}" Height="75" Width="75">
+      <Image.ToolTip>
+        <TextBlock Text="{Binding Email}" FontSize="12" FontStyle="Italic" />
+      </Image.ToolTip>
+    </Image>
+    <TextBlock FontSize="14" TextWrapping="Wrap">
+      <TextBlock.Text>
+        <MultiBinding StringFormat="{}{0}, {1}>
+          <Binding Path="LastName" />
+          <Binding Path="FirstName" />
+        </MultiBinding>
+      </TextBlock.Text>
+    </TextBlock>
+  </StackPanel>
+</DataTemplate>
+}}}
+
+  * The last step is we need to create a style for the ListBox, which is going to use triggers to switch out the itemTemplate. So We need to remove the ListBox ItemTemplate and put in the style instead.
+{{{
+<ListBox ItemSource="{Binding People}">
+  <ListBox.Style>
+    <Style TargetType="ListBox">
+      <Style.Triggers>
+        <DataTrigger Binding="{Binding IsChecked, ElementName=swichViewsToggleButton}" Value="True">
+          <Setter Property="ItemTemplate" Value="{StaticResource PeronsIconTemplate}" />
+          <Setter Property="ScorllViewer.HorizontalScrollBarVisibility" Value="Diabled" />
+          <Setter Property="ItemsPanel">
+            <Setter.Value>
+              <ItemsPanelTemplate>
+                <WrapPanel />
+              </ItemsPanelTemplate>
+            </Setter.Value>
+          </Setter>
+        </DataTrigger>
+        <DataTrigger Binding="{Binding IsChecked, ElementName=switchViewsToggleButton}" Value="False">
+          <Setter Property="ItemTemplate" Value="{StaticResource PersonItemTemplate}" />
+        </DataTrigger>
+      </Style.Triggers>
+    </Style>
+  </ListBox.Style>
+</ListBox>
+}}}

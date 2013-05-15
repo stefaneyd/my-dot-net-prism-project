@@ -1,0 +1,13 @@
+#summary One-sentence summary of this page.
+#sidebar TableOfContents
+
+= 8. View-Based Navigation =
+
+In this module we are going to learn how to implement View-Based Navigation. In Prism 4 regions have been extended to provide view-based navigation services.
+
+  * Basic Region Navigation
+  * View and !ViewModel participation
+  * Passing Parameters - between the view being navigated from to the view being navigated to.
+  * Navigating to Existing Views
+  * Confirming or Canceling Navigation
+  * Navigation Journal - to implement custom Go Back or Go Forward type navigation

@@ -11,3 +11,51 @@ In this module we are going to learn how to implement View-Based Navigation. In 
   * Navigating to Existing Views
   * Confirming or Canceling Navigation
   * Navigation Journal - to implement custom Go Back or Go Forward type navigation
+
+----
+== Basic Region Navigation ==
+
+Region navigation means that a view with in a region is replaced with another view.
+  * view replaces view - this could be a new instance of a view or existing view
+  * IVavigateAsyncRequestNavigate - you initiate navigation by calling the !RequestNavigate method that is defined by the INavigateAsync interface but despite its name it is not async.
+    * !RequestNavigate
+      * Region
+{{{
+IRegion region = ...;
+region.RequestNavigate(New Uri("MyView", UriKind.Relative));
+}}}
+      * !RegionManager
+{{{
+IRegionManager regionManager = ...;
+regionManager.RequestNavigate(RegionNames.ContentRegion, new Uri("MyView", UriKind.Relative));
+}}}
+  * Based on URI's - Views are identified by URI's by default this refers to the name of the view to be navigated to.
+  * Type must register as Object - we also have to register our view with the container differently than you would expect.
+    * Register Types as Object
+      * Standard registration
+{{{
+Container.RegisterType<HomeView>("HomeView");
+
+Container.RegisterType<IHomeView, HomeView>("Homeview");
+}}}
+      * Navigation registration
+{{{
+Container.RegisterType<object, HomeView>("HomeView");
+
+Container.RegisterType(typeof(object>, typeof(HomeView), "HomeView");
+}}}
+  * View or !ViewModel first
+
+Basic Region Navigation - cont.
+  * Navigation Callback
+{{{
+private void Navigate(string navigatePath)
+{
+  RegionManager.RequestNavigate(Region.Names.ContentRegion, navigatePath, NavigateionCompleted);
+}
+
+private void NavigateionCompleted(NavigationResult result)
+{
+  ...
+}
+}}}

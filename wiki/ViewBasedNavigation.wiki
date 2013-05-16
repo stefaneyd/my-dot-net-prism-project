@@ -59,3 +59,126 @@ private void NavigateionCompleted(NavigationResult result)
   ...
 }
 }}}
+
+----
+== Demo Basic Region Navigation ==
+
+In this demo we have an application that we want to add View-Based Navigation to. The application has two modules ModuleA and ModuleB each module will have a button, this button will be used to navigate to the modules view and the module has a view which simply displays the name of the current view. Now lets look at the shell, there we have two regions, we have !StackPanel as our toolbar region and a !ContentControl as our content region where the views will be injected into
+
+
+*ViewAButton*
+{{{
+<UserControl x:Class="ModuleA.ViewAButton"
+	     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	     xmlns:views="clr-namespace:ModuleA"
+	     xmlns:infCommands="clr-namespace:Demo.Infrastructure;assebly=Demo.Infrastructure">
+  <Grid Margin="5">
+    <Button>Navigate to View A</Button>
+  </Grid>
+</UserControl>
+}}}
+
+*ViewA*
+{{{
+<UserControl x:Class="ModuleA.ViewA"
+	     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	     mc:Ignorable="d"
+	     d:DesignHeight="300" d:DesignWidth="300">
+  <Grid>
+    <TextBlock Text="ViewA" FontSize="48" HorizontalAlignment="Center" VerticalAlignment="Center">ViewA</TextBlock>
+  </Grid>
+</UserControl>
+}}}
+
+*Shell*
+{{{
+<Window x:Class="Demo.Shell"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:prism="http://www.codeplex.com/prism"
+	xmlns.inf="clr-namespace:Demo.Infrastructure;assembly=Demo.Infrastrcture"
+	Title="Shell">
+  <DockPanel LastChldFill="True">
+    <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" prism:RegionManager.RegionName="{x:Static inf:RegionNames.ToolbarRegion}" Margin="5" />
+    <ContentControl prism:RegionManager.RegionName="{x:Static inf:RegionNames.ContentRegion}" Margin="5" />
+  </DockPanel>
+</Window>
+}}}
+
+Now lets create a compositCommand in our infrastructure project, create a class named !ApplicationCommands
+{{{
+public class ApplicationCommands
+{
+  public static CompositeCommand NavigateCommand = new CompositeCommand();
+}
+}}}
+
+In this case we want the shell to be responsible for managing the navigation
+{{{
+public class ShellViewModel : viewModelBase, IShellViewModel
+{
+  private readonly IRegionManager _regionManager;
+
+  public DelegateCommand<object> NavigateCommand { get; private set; }
+
+  public ShellViewModel(IRegionManager regionManager)
+  {
+    _regionManager = regionManager;
+    NavigateCommand = new DelegateCommand<object>(Navigate);
+    ApplicationCommand.NavigateCommand.RegisterCommand(NavigateCommand);
+  }
+
+  private void Navigate(object navigatePath)
+  {
+    if(navigatePath != null)
+      _regionManager.RequestNavigate(RegionNames.ContentRegion, navigatePath.ToString());
+  }
+}
+}}}
+
+Next we hook up our buttons to this command, so lets change the button properties in our !ViewAButton.xaml
+{{{
+<Button Command="{x:Static infCommands:ApplicationCommand.NavigateCommand}" CommandParameter="{x:Type views:ViewA}">Navigate to View A</Button>
+}}}
+And we do the same thing for ModuleB button.
+We also have to change our ModuleAModule.cs !RegisterTypes() method
+{{{
+Container.RegisterType<object, ViewB>(typeof(ViewB).FullName);
+}}}
+
+To help ease the process of navigating types for navigation we provide an extension method in the Demo.Infrastructure project.
+{{{
+public static class UnityExtensions
+{
+  public static void RegisterTypeForNavigation<T>(this IUnityContainer container)
+  {
+    container.RegisterType(typeof(Object), typeof(T), typeof(T).FullName);
+  }
+}
+}}} 
+
+So we can change our !RegisterTypes method in ModuleAModule class to this
+{{{
+protected override void RegisterTypes()
+{
+  Container.RegisterTypeForNavigation<ViewA>();
+}
+}}}
+
+Now lets implement to let us know when the navigation process is completed. To do that we go to our !ShellViewModel and change the Navigate method
+{{{
+private void Navigate(object navigatePath)
+{
+  if(navigatePath != null)
+    _regionManager.RequestNavigate(RegionNames.ContentRegion, navigatePath.ToString(), NavigateComplete);
+}
+
+private void NavigateComplete(NavigationResult result)
+{
+  MesssageBox.Show(String.Format("Navigation to {0} complete.", result.Context.Uri));
+}
+}}}

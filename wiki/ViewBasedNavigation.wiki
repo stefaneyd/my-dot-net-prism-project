@@ -182,3 +182,34 @@ private void NavigateComplete(NavigationResult result)
   MesssageBox.Show(String.Format("Navigation to {0} complete.", result.Context.Uri));
 }
 }}}
+
+----
+== View and !ViewModel Participation ==
+
+View based navigation involves replacing one view with another and often is required to know when the old view is being navigated away from and the new view is being navigated to. Prism provides a way for your view and or viewModel to participate in this process and thats by implementing the INavigationAware interface.
+  * INavigationAware - lets look at the definition of this interface
+{{{
+public interface INavigateionAware
+{
+  bool IsNavigationTarget(NavigationContext navigationContext);
+  void OnNavigatedFrom(NavigationContext navigationContext);
+  void OnNavigatedTo(NavigationContext navigationContext);
+}
+}}}
+We see that there are three methods
+  * !IsNavigationTarget - which allows existing view or viewModel to determine if it can participate in the navigation request.
+  * !OnNavigatedFrom - which is called on the current view before the navigation takes place.
+  * !OnNavigatedTo - which is called after navigation is complete on the newly activated view
+
+<img src="http://s17.postimg.org/ovez1gub3/inavigationaware.png" />
+
+After the new view has been navigated to, the old view is deactivated with in the region.
+
+  * IRegionMemberLifetime - if you want to remove the view form the region completely
+{{{
+public interface IRegionMemberLifetime
+{
+  bool KeepAlive { get; }
+}
+}}}
+If you set the !KeepAlive property to false then the view is removed completely when the view is deactivated.

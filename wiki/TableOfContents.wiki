@@ -59,3 +59,4 @@
     * [StateBasedNavigation#Demo_User_Interaction Demo User Interaction]
   * [ViewBasedNavigation View-Based Navigation]
     * [ViewBasedNavigation#Basic_Region_Navigation Basic Region Navigation]
+    * [ViewBasedNavigation#Demo_Basic_Region_Navigation Demo Basic Region Navigation]

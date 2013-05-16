@@ -201,7 +201,7 @@ We see that there are three methods
   * !OnNavigatedFrom - which is called on the current view before the navigation takes place.
   * !OnNavigatedTo - which is called after navigation is complete on the newly activated view
 
-<img src="http://s17.postimg.org/ovez1gub3/inavigationaware.png" />
+<img src="http://s17.postimg.org/ovez1gub3/inavigationaware.png" width="400px" />
 
 After the new view has been navigated to, the old view is deactivated with in the region.
 

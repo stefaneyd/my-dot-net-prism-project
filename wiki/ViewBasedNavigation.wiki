@@ -596,7 +596,7 @@ public interface IConfirmNavigationRequest : INavigationAware
 }
 }}}
 
-<img src="http://s12.postimg.org/p2oyl53al/iconfirmnavigationrequestprocess.png" width="400px" />
+<img src="http://s12.postimg.org/p2oyl53al/iconfirmnavigationrequestprocess.png" width="600px" />
 
 Example
 {{{

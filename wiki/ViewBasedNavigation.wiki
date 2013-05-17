@@ -592,7 +592,7 @@ We need to be able to confirm or cancel navigation request, for example we may w
 {{{
 public interface IConfirmNavigationRequest : INavigationAware
 {
-  void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuActionCallback);
+  void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback);
 }
 }}}
 
@@ -600,7 +600,7 @@ public interface IConfirmNavigationRequest : INavigationAware
 
 Example
 {{{
-public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuActionCallback)
+public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback)
 {
   //by default we allow navigation
   bool result = true;

@@ -677,6 +677,6 @@ Prism provides a journal that allows you to programmatically navigate forward or
   * Works Only with Region Navigation Services - it can only be used for region navigation operations that have been managed by the region navigation services. If you use view injection or viewdiscovery the navigation journal will not be updated.
   * Accessed from !NavigationService.Journal property - the navigationservice which is responsible for managing the navigation operations within a region provides access to the journal through the journal property.
   * !NavigationService accessed from !NavigationContext - the !NavigationContext is passed as a parameter to all the methods defined in the INavigationAware interface. Most likely you will be obtaining and storing a reference to the navigationService in the !OnNavigateTo method.
-  * the journal provides a number methods for programmatic access to navigating forward and backwards in the region such as GoBack(),CanGoBack(), GoForward(), CanGoForward()
+  * the journal provides a number methods for programmatic access to navigating forward and backwards in the region such as !GoBack(),!CanGoBack(), !GoForward(), !CanGoForward()
   * !GoBack(), !CanGoBack()
   * !GoForward(), !CanGoForward()

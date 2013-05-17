@@ -606,7 +606,7 @@ public void ConfirmNavigationRequest(NavigationContext navigationContext, Action
   bool result = true;
 
   //prompt user for desired action
-  MessageBoxResult messageResult = MessageBox.Show("Save", Save Object?", MessageBoxButton.YesNoCancel);
+  MessageBoxResult messageResult = MessageBox.Show("Save", "Save Object?", MessageBoxButton.YesNoCancel);
   
   if(messageResult == MessageBoxResult.Yes)
     CurrentCustomer.Save(); //perform save

@@ -215,7 +215,7 @@ public interface IRegionMemberLifetime
 If you set the !KeepAlive property to false then the view is removed completely when the view is deactivated.
 
 ----
-== Demo View and ViewModel Participation ==
+== Demo View and !ViewModel Participation ==
 
 Now that we have implemented View-Based Navigation in our application lets take it a step further. This application has added a !ViewModule (!ViewAViewModel) to the views so each view has a viewModel and each viewModel is going to have a property called pageViews.
 {{{

@@ -583,3 +583,36 @@ public bool IsNavigationTarget(NavigationContext navigationContext)
 }
 }}}
 Now we are creating a new instance of the view if we have not been there before.
+
+----
+== Confirming or Canceling Navigation ==
+
+We need to be able to confirm or cancel navigation request, for example we may want to prompt the user to save data when a navigation operation is initiated and block the navigation until the user responds to the save dialog. And Prism supports this functionality with the use of IConfirmNavigationRequest interface.
+  * IConfirmNavigationRequest - by implementing this interface on either the view and/or the viewModel you enable them to participate in the navigation process. And it provides a mechanism that interacts with the user that will allow the user to confirm or cancel the navigation request.
+{{{
+public interface IConfirmNavigationRequest : INavigationAware
+{
+  void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuActionCallback);
+}
+}}}
+
+<img = src="http://s12.postimg.org/p2oyl53al/iconfirmnavigationrequestprocess.png" width="400px" />
+
+Example:
+{{{
+public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuActionCallback)
+{
+  //by default we allow navigation
+  bool result = true;
+
+  //prompt user for desired action
+  MessageBoxResult messageResult = MessageBox.Show("Save", Save Object?", MessageBoxButton.YesNoCancel);
+  
+  if(messageResult == MessageBoxResult.Yes)
+    CurrentCustomer.Save(); //perform save
+  else if(messageResult == MessageBoxResult.Cancel)
+    result = false; //don't allow navigation
+
+  continuActionCallback(result);
+}
+}}}

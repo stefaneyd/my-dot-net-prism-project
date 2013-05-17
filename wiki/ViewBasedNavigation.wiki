@@ -553,3 +553,17 @@ public class EmailViewViewModel : ViewModelBase, IEmailViewViewModel, INavigatio
   }
 }
 }}}
+
+----
+== Navigate to Existing views ==
+
+Sometimes it is desirable to reuse, update or activate an existing view instead of creating an instance of a new view on every navigation operation. To accomplish this task we need to know two things.
+  * INavigationAware.!IsNavigationTarget
+  * Parameters - The parameters will be used with in the !IsNavigationTarget method to help compare state or data which will help determine result of the method.
+{{{
+public bool IsNavigationTarget(NavigationContext navigationContext)
+{
+  string id = navigationContext.Parameters["Id"];
+  return this.currentCustomer.Id.Equals(id);
+}
+}}}

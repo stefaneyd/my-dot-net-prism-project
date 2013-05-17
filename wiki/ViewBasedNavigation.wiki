@@ -376,7 +376,7 @@ We still have two modules ModuleA and MOduleB, but ModuleA has some extra views.
 <UserControl x:Class="ModuleA.ViewA"
 	     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	     xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/presentation/t
+	     xmlns:extToolkit="http://schemas.microsoft.com/winfx/2006/presentation/toolkit/extended">
 
   <UserControl.Resources>
     <DataTemplate x:Key="PersonItemTemplate">
@@ -400,9 +400,9 @@ We still have two modules ModuleA and MOduleB, but ModuleA has some extra views.
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
 
-    <Button Command="{Binding EmailCommand}" CommandParameter="{Binding SelectedItem,
+    <Button Command="{Binding EmailCommand}" CommandParameter="{Binding SelectedItem, Path=SelectedPerson} />
     
-    <extToolkit:BusyIndicator Grid.Row="1" IsBusy="{Binding IsBusy}" BusyContent="Loading...."
+    <extToolkit:BusyIndicator Grid.Row="1" IsBusy="{Binding IsBusy}" BusyContent="Loading....">
       <ListBox x:Name="listOfPeople"
 		Itemsource="{Binding People}"
 		ItemTemplate="{StaticResource PersonItemTemplate}">

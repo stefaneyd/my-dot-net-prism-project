@@ -354,3 +354,15 @@ public class ViewBViewModel : ViewModelBase, IViewBViewModel, INavigationAware, 
 }
 }}}
 So each time we navigate from ViewB it is deactivated and deleted, so when we navigate to ViewB we create a new instance of the view.
+
+----
+== Passing Parameters ==
+
+Sometimes it is necessary to pass parameters from the view that is being navigated from to the view that is being navigated to.
+  * Append to navigation URI - this can be done by appending your parameters to the navigation URI that is passed to the request navigate method.
+  * !UriQuery - Prism provides the !UriQuery class to help specify and retrieve parameters, for each parameter the !UriQuery object maintains a list of named value pairs. The name being the name of the parameter and the value being the value of the parameter.
+  * Accessed from INavigationAware methods - you gain access to these parameters from with in the INavigationAware methods.
+  * NavigationContext
+    * NavigationService
+    * URI
+    * Parameters

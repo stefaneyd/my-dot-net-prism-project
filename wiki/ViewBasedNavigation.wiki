@@ -616,3 +616,55 @@ public void ConfirmNavigationRequest(NavigationContext navigationContext, Action
   continuationCallback(result);
 }
 }}}
+
+----
+== Demo Confirming or Canceling Navigation ==
+
+When you implement navigation in your application it's often desirable to have the ability to prompt a user for some type of confirmation to continue navigation or to cancel navigation. And in this application we are going to implement that functionality.
+
+Open ViewAViewModel.cs and implement the IConfirmNavigationRequest interface
+{{{
+public class ViewAViewModel : ViewModelBase, IViewAViewModel, IConfirmNavigationRequest
+{
+  private int _pageViews;
+  public int PageViews
+  {
+    get { return _pageViews; }
+    set
+    {
+      _pageViews = value;
+      OnPropertyChanged("PageViews");
+    }
+  }
+
+  public ViewAViewModel()
+  {
+
+  }
+
+  public void ConfirmNavigationRequest(NavigationContext navigationContext, Action<bool> continuationCallback
+  {
+    bool result = true;
+
+    if(MessageBox.Show("Do you want to navigate?", "Navigate?", MessageBoxButton.YesNo) == MessageBoxResult.No)
+      result = false;
+
+    continuationCallback(result);
+  }
+
+  public bool IsNavigationTarget(NavigationContext navigationContext)
+  {
+    return true;
+  }
+
+  public void OnNavigatedFrom(NavigationContext navigationContext)
+  {
+
+  }
+
+  public void OnNavigatedTo(NavigationContext navigationContext)
+  {
+    PageViews++;
+  }
+}
+}}}

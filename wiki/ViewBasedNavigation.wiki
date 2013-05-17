@@ -613,6 +613,6 @@ public void ConfirmNavigationRequest(NavigationContext navigationContext, Action
   else if(messageResult == MessageBoxResult.Cancel)
     result = false; //don't allow navigation
 
-  continuActionCallback(result);
+  continuationCallback(result);
 }
 }}}

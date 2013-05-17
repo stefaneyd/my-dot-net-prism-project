@@ -60,3 +60,5 @@
   * [ViewBasedNavigation View-Based Navigation]
     * [ViewBasedNavigation#Basic_Region_Navigation Basic Region Navigation]
     * [ViewBasedNavigation#Demo_Basic_Region_Navigation Demo Basic Region Navigation]
+    * [ViewBasedNavigation#View_and_ViewModel_Participation View and ViewModel Participation]
+    * [ViewBasedNavigation#Demo_View_and_ViewModel_Participation Demo View and ViewModel Participation]

@@ -680,3 +680,89 @@ Prism provides a journal that allows you to programmatically navigate forward or
   * the journal provides a number methods for programmatic access to navigating forward and backwards in the region such as !GoBack(),!CanGoBack(), !GoForward(), !CanGoForward()
   * !GoBack(), !CanGoBack()
   * !GoForward(), !CanGoForward()
+
+----
+== Demo Using the Navigation Journal ==
+
+In this demo we are going to see how to gain access to the Navigation Journal which will provide us programmatic access for navigating forward or backwards thru our regions views.
+
+Open up !EmailviewviewModel in ModuleA
+{{{
+public class EmailViewViewModel : ViewModelBase, IEmailViewViewModel, INavigationAware
+{
+  private IRegionNavigationJournal _journal;
+  //Constructors
+  public EmailViewViewModel()
+  {
+    CancelCommand = new DelegateCommand(Cancel);
+  }
+
+  private void Cancel()
+  {
+    _journal.GoBack();
+  }
+
+  //Properties
+  
+  public DelegateCommand CancelCommand { get; private set; }
+  
+  private string to;
+  public string To
+  {
+    get { return _to; }
+    set
+    {
+      _to = value;
+      OnPropertyChanged("To");
+    }
+   }
+
+  private string _subject;
+  public string Subject
+  {
+    get { return _subject; }
+    set
+    {
+      _subject = value;
+      OnPropertyChanged("Subject");
+    }
+  }
+
+  private string _body;
+  public string Body
+  {
+    get { return _body; }
+    set
+    {
+      _body = value;
+      OnPropertyChanged("Body");
+    }
+  }
+
+  public bool IsNavigationTarget(NavigationContext navigationContext)
+  {
+
+  }
+
+  public void OnNavigateFrom(NavigationContext navigationContext)
+  {
+
+  }
+
+  public void OnNavigatedTo(NavigationContext navigationContext)
+  {
+    _journal = navigationContext.NavigationService.Journal;
+
+    var toAddress = navigationContext["To"];
+    if(!string.IsNullOrWhiteSpace(toAddress))
+      To = toAddress;
+    else
+      To = "Email not provided;
+  }
+}
+
+}}}
+Now open !EmailView.xaml and find the Cancel button
+{{{
+<Button Command="{Binding CancelCommand}" Width="60">Cancel</Button>
+}}}

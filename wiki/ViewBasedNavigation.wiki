@@ -567,3 +567,19 @@ public bool IsNavigationTarget(NavigationContext navigationContext)
   return this.currentCustomer.Id.Equals(id);
 }
 }}}
+
+----
+== Demo Navigating to Existing views ==
+
+Now we look at how to implement navigation to existing views. And we do that by changing the !IsNavigationTarget method in !EmailViewViewModel class.
+{{{
+public bool IsNavigationTarget(NavigationContext navigationContext)
+{
+  var toAddress = navigationContext.Parameters["To"];
+  if(To == toAddress)
+    return true;
+  else
+    return false;
+}
+}}}
+Now we are creating a new instance of the view if we have not been there before.

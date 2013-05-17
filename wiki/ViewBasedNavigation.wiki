@@ -213,3 +213,144 @@ public interface IRegionMemberLifetime
 }
 }}}
 If you set the !KeepAlive property to false then the view is removed completely when the view is deactivated.
+
+----
+== Demo View and ViewModel Participation ==
+
+Now that we have implemented View-Based Navigation in our application lets take it a step further. This application has added a !ViewModule (!ViewAViewModel) to the views so each view has a viewModel and each viewModel is going to have a property called pageViews.
+{{{
+public class ViewAViewModel : ViewModelBase, IViewBBiewModel
+{
+  private int _pageViews;
+  public int PageViews
+  {
+    get { return _pageViews; }
+    set
+    {
+      _pageViews = value;
+      OnPropertyChanged("PageViews");
+    }
+  }
+
+  public ViewAViewModel()
+  {
+
+  }
+}
+}}}
+What we want to do is when we navigate we want to update the count on how many times the page has been navigated to. So now we need our view and viewModels to participate in the navigate process.
+
+We begin by implementing the INavigationAware interface to our viewModel
+{{{
+public class ViewAViewModel : ViewModelBase, IViewAViewModel, INavigationAware
+{
+  private int _pageViews;
+  public int PageViews
+  {
+    get { return _pageViews; }
+    set
+    {
+      _pageViews = value;
+      OnPropertyChanged("PageViews");
+    }
+  }
+
+  public ViewAViewModel()
+  {
+
+  }
+
+  // INavigationAware implemnts these three methods
+  public bool IsNavigationTarget(NavigationContext navigationContext)
+  {
+    return true;
+  }
+
+  public void OnNavigatedFrom(NavigationContext navigationContext)
+  {
+
+  }
+
+  public void OnNavigatedTo(NavigationContext navigationContext)
+  {
+    PageViews++;
+  }
+}
+}}}
+
+Participation is not limited to viewModel we can also implement the INavigationAware on the view itself.
+{{{
+public partial class ViewA : UserControl, IView, INavigationAware
+{
+  public ViewA(IViewAViewModel viewModel)
+  {
+    InitializeComponent();
+    ViewModel = viewModel;
+  }
+
+  public IViewModel ViewModel
+  {
+    get { return (IViewModel)DataContext; }
+    set { DataContext = value; }
+  }
+
+  public bool IsNavigationTarget(NavigationContext navigationContext)
+  {
+    return true;
+  }
+
+  public void OnNavigatedFrom(NavigationContext navigationContext)
+  {
+
+  }
+
+  public void OnNavigatedTo(NavigationContext navigationContext)
+  {
+
+  }
+}
+}}}
+Now lets change the viewModel ViewBViewModel and implement the IRegionMemberLifetime
+{{{
+public class ViewBViewModel : ViewModelBase, IViewBViewModel, INavigationAware, IRegionMemberLifetime
+{
+  private int _pageViews;
+  public int PageViews
+  {
+    get { return _pageViews; }
+    set
+    {
+      _pageViews = value;
+      OnPropertyChanged("PageViews");
+    }
+  }
+
+  public ViewBViewModel()
+  {
+
+  }
+
+  // INavigationAware implemnts these three methods
+  public bool IsNavigationTarget(NavigationContext navigationContext)
+  {
+    return true;
+  }
+
+  public void OnNavigatedFrom(NavigationContext navigationContext)
+  {
+
+  }
+
+  public void OnNavigatedTo(NavigationContext navigationContext)
+  {
+    PageViews++;
+  }
+
+  // IRegionMemberLifetime Property
+  public bool KeepAlive
+  {
+    get { return false; }
+  }
+}
+}}}
+So each time we navigate from ViewB it is deactivated and deleted, so when we navigate to ViewB we create a new instance of the view.

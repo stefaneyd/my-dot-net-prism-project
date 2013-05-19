@@ -131,7 +131,7 @@ In the previous demo we implemented the MVVM pattern in our Prism application us
   * Add a new interface to Demo.Infrastructure and name it IViewModel and make it public.
   * Add a new interface to Demo.Infrastructure and name it IView and make it public
   * IView should have IViewModel property
-  * But the IView will not have IViewModel property.
+  * But the IViewModel will not have IView property.
   * Add a new interface to ModelA Project and name it IContentAViewViewModel make it public and implement IViewModel so we need a reference to Demo.Infrastructure and a using namespace.
   * Add a new class to ModelA and name it ContentAViewViewModel, should be public and implement IContentAViewViewModel
   * Add a constructor to the class 

@@ -29,7 +29,7 @@ namespace DemoCreatingAViewMVVM_ViewFirst.ModelA
 
             _regionManager.RegisterViewWithRegion(RegionNames.ToolbarRegion, typeof(ToolbarView));
 
-            var vm = _container.Resolve<IView2>();
+            var vm = _container.Resolve<ContentView>();
             _regionManager.Regions[RegionNames.ContentRegion].Add(vm);
         }
     }

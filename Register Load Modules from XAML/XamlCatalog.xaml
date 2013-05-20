@@ -1,5 +1,0 @@
-﻿<Modularity:ModuleCatalog xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:Modularity="clr-namespace:Microsoft.Practices.Prism.Modularity;assembly=Microsoft.Practices.Prism">
-    <Modularity:ModuleInfo Ref="file://DemoCreatingRegions.ModuleA.dll" ModuleName="DemoCreatingRegions.ModuleA" ModuleType="DemoCreatingRegions.ModuleA.ModuleAModule, DemoCreatingRegions.ModuleA, Version=1.0.0.0" InitializationMode="WhenAvailable" />
-</Modularity:ModuleCatalog >
